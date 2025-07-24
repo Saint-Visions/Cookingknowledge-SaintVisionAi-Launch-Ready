@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { WorkspaceLayout } from "@/components/WorkspaceLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Building,
   Users,
@@ -30,19 +33,21 @@ import {
   Clock,
   ArrowUpRight,
   Sparkles,
+  PlayCircle,
+  FileText,
+  Users2,
+  PieChart,
 } from "lucide-react";
 
 export default function Workspace() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [workspaceName] = useState("Acme Corp Workspace");
   const [activeTab, setActiveTab] = useState("overview");
-  const [userPlan, setUserPlan] = useState("enterprise"); // This would come from auth context
-  const [hasCRMAccess, setHasCRMAccess] = useState(true); // This would be determined from plan features
+  const [userPlan, setUserPlan] = useState("enterprise");
+  const [hasCRMAccess, setHasCRMAccess] = useState(true);
 
   useEffect(() => {
     setIsLoaded(true);
-    // In real implementation, fetch user plan and features
-    // fetchUserPlanAndFeatures();
   }, []);
 
   // Determine if we should show PartnerTech branding
@@ -52,25 +57,18 @@ export default function Workspace() {
     if (isPartnerTechWorkspace) {
       return {
         name: "PartnerTech.ai",
-        logo:
-          "https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2Fpartnertech-logo",
+        logo: "https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2Fpartnertech-logo",
         tagline: "CRM + Automation Suite",
-        primaryColor: "#3B82F6", // Blue
-        accentColor: "#10B981", // Green
-        gradient: "bg-gradient-to-r from-blue-500 to-emerald-500",
-        textGradient:
-          "bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent",
+        primaryColor: "#3B82F6",
+        accentColor: "#10B981",
       };
     }
     return {
       name: "SaintVision AI",
-      logo:
-        "https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2Fdc36ab3d288a4806bc52f5b6be2d1ad4",
+      logo: "https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2Fdc36ab3d288a4806bc52f5b6be2d1ad4",
       tagline: "AI Platform",
-      primaryColor: "#FFD700", // Gold
-      accentColor: "#4F46E5", // Purple
-      gradient: "saintvision-gradient-text",
-      textGradient: "saintvision-gradient-text",
+      primaryColor: "#FFD700",
+      accentColor: "#4F46E5",
     };
   };
 
@@ -82,28 +80,32 @@ export default function Workspace() {
       value: "24",
       change: "+3 this month",
       icon: Users,
-      color: "text-blue-300",
+      color: "text-blue-600",
+      bg: "bg-blue-50",
     },
     {
       label: "AI Conversations",
       value: "12,847",
       change: "+2,341 this week",
       icon: MessageSquare,
-      color: "text-green-300",
+      color: "text-green-600",
+      bg: "bg-green-50",
     },
     {
       label: "Monthly Usage",
       value: "89%",
       change: "Under limit",
       icon: BarChart3,
-      color: "text-gold-300",
+      color: "text-gold-600",
+      bg: "bg-yellow-50",
     },
     {
       label: "Success Rate",
       value: "94.2%",
       change: "+1.2% vs last month",
       icon: Target,
-      color: "text-purple-300",
+      color: "text-purple-600",
+      bg: "bg-purple-50",
     },
   ];
 
@@ -152,514 +154,386 @@ export default function Workspace() {
       action: "Created new AI project",
       time: "2 hours ago",
       type: "create",
+      icon: Plus,
     },
     {
       user: "Mike C.",
       action: "Upgraded workspace plan",
       time: "1 day ago",
       type: "upgrade",
+      icon: ArrowUpRight,
     },
     {
       user: "Lisa R.",
       action: "Exported chat history",
       time: "2 days ago",
       type: "export",
+      icon: Download,
     },
     {
       user: "David P.",
       action: "Joined workspace",
       time: "3 days ago",
       type: "join",
+      icon: UserPlus,
     },
   ];
 
-  const workspaceTabs = [
-    { id: "overview", label: "Overview", icon: BarChart3 },
-    { id: "members", label: "Members", icon: Users },
-    { id: "settings", label: "Settings", icon: Settings },
-    { id: "billing", label: "Billing", icon: DollarSign },
+  const breadcrumbs = [
+    { label: "Workspace" },
   ];
+
+  const headerActions = (
+    <div className="flex items-center space-x-3">
+      <Badge className={`${isPartnerTechWorkspace ? "bg-blue-100 text-blue-800" : "bg-gold-100 text-gold-800"}`}>
+        <Crown className="w-3 h-3 mr-1" />
+        {isPartnerTechWorkspace ? "CRM Pro" : "Enterprise"}
+      </Badge>
+      <Button className={`${isPartnerTechWorkspace ? "bg-blue-500 hover:bg-blue-600" : "bg-gold-500 hover:bg-gold-600"} text-white`}>
+        <UserPlus className="w-4 h-4 mr-2" />
+        Invite Team
+      </Button>
+    </div>
+  );
 
   const getRoleColor = (role: string) => {
     switch (role) {
       case "Admin":
-        return "bg-red-500/20 text-red-300 border-red-500/30";
+        return "bg-red-100 text-red-800 border-red-200";
       case "Member":
-        return "bg-gold-500/20 text-gold-300 border-gold-500/30";
+        return "bg-gold-100 text-gold-800 border-gold-200";
       case "Viewer":
-        return "bg-blue-500/20 text-blue-300 border-blue-500/30";
+        return "bg-blue-100 text-blue-800 border-blue-200";
       default:
-        return "bg-gray-500/20 text-gray-300 border-gray-500/30";
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-green-500/20 text-green-300 border-green-500/30";
+        return "bg-green-100 text-green-800 border-green-200";
       case "inactive":
-        return "bg-gray-500/20 text-gray-300 border-gray-500/30";
+        return "bg-gray-100 text-gray-800 border-gray-200";
       default:
-        return "bg-gray-500/20 text-gray-300 border-gray-500/30";
+        return "bg-gray-100 text-gray-800 border-gray-200";
     }
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-900 text-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 circuit-pattern opacity-5"></div>
-
-      {/* Parallax Background */}
-      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat workspace-parallax-bg"></div>
-
-      {/* Centered Logo */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <img
-          loading="lazy"
-          srcSet="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565?width=100 100w, https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565?width=200 200w, https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565?width=400 400w, https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565?width=800 800w, https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565?width=1200 1200w, https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565?width=1600 1600w, https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565?width=2000 2000w, https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565"
-          src="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565"
-          alt="Center Logo"
-          className="w-full max-w-md h-auto object-contain opacity-10"
-          style={{
-            aspectRatio: "1",
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-        />
-      </div>
-
-      {/* Mobile-First Navigation */}
-      <nav className="relative z-50 flex items-center justify-between p-4 md:p-6 lg:px-12 border-b border-white/10">
-        <div className="flex items-center space-x-3 md:space-x-4">
-          <img
-            src={brandConfig.logo}
-            alt={`${brandConfig.name} Logo`}
-            className="w-10 h-10 md:w-12 md:h-12 object-contain"
-            style={{
-              filter: isPartnerTechWorkspace
-                ? "brightness(1.3) contrast(1.2) drop-shadow(0 0 12px rgba(59, 130, 246, 0.4))"
-                : "brightness(1.3) contrast(1.2) drop-shadow(0 0 12px rgba(255, 215, 0, 0.4))",
-              opacity: "0.95",
-            }}
-            onError={e => {
-              e.currentTarget.src = `https://api.dicebear.com/7.x/initials/svg?seed=${
-                brandConfig.name
-              }&backgroundColor=${
-                isPartnerTechWorkspace ? "3B82F6" : "FFD700"
-              }`;
-            }}
-          />
-          <div>
-            <h1
-              className={`text-lg md:text-xl font-bold ${brandConfig.textGradient}`}
-            >
-              {workspaceName}
-            </h1>
-            <p
-              className={`text-xs -mt-1 hidden sm:block ${
-                isPartnerTechWorkspace ? "text-blue-300" : "text-gold-300"
-              }`}
-            >
-              {brandConfig.tagline} Workspace
-            </p>
-          </div>
-        </div>
-
-        <div className="flex items-center space-x-2 md:space-x-4">
-          {isPartnerTechWorkspace && (
-            <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 text-xs md:text-sm">
-              <Users className="w-3 h-3 mr-1" />
-              <span className="hidden sm:inline">CRM Pro</span>
-            </Badge>
-          )}
-          <Badge className="bg-green-500/20 text-green-300 border-green-500/30 text-xs md:text-sm">
-            <Crown className="w-3 h-3 mr-1" />
-            <span className="hidden sm:inline">Enterprise</span>
-          </Badge>
-          <Button
-            variant="outline"
-            size="sm"
-            className={`px-2 md:px-4 ${
-              isPartnerTechWorkspace
-                ? "border-blue-400/60 text-blue-200 hover:bg-blue-500/20 hover:text-blue-100"
-                : "border-gold-400/60 text-gold-200 hover:bg-gold-500/20 hover:text-gold-100"
-            }`}
-          >
-            <UserPlus className="w-4 h-4 md:mr-2" />
-            <span className="hidden md:inline">Invite</span>
-          </Button>
-        </div>
-      </nav>
-
-      <div className="relative z-40 px-4 md:px-6 py-6 md:py-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Mobile-First Header */}
-          <div
-            className={`mb-6 md:mb-8 transform transition-all duration-1000 ${
-              isLoaded
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
-          >
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 tracking-tight">
-              <span
-                className={
-                  isPartnerTechWorkspace
-                    ? "bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent"
-                    : "saintvision-gradient-text"
-                }
-              >
-                Team
-              </span>
-              <br />
-              <span
-                className={
-                  isPartnerTechWorkspace ? "text-blue-300" : "text-green-300"
-                }
-              >
-                Workspace
-              </span>
-            </h1>
-            <p className="text-lg md:text-xl text-white/80 max-w-3xl">
-              {isPartnerTechWorkspace
-                ? "Manage your team's CRM automation and AI agents with PartnerTech.ai's collaborative features, sales analytics, and enterprise controls."
-                : "Manage your team's SaintSal™ AI workspace with collaborative features, usage analytics, and enterprise controls."}
-            </p>
-          </div>
-
-          {/* Mobile-Optimized Stats */}
-          <div
-            className={`grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mb-6 md:mb-8 transform transition-all duration-1000 delay-300 ${
-              isLoaded
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
-          >
-            {workspaceStats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div
-                  key={index}
-                  className="glass-morphism p-3 md:p-6 rounded-xl hover:saintvision-glow transition-all"
-                >
-                  <div className="flex items-center justify-between mb-2 md:mb-3">
-                    <Icon className={`w-4 h-4 md:w-6 md:h-6 ${stat.color}`} />
-                  </div>
-                  <p className="text-lg md:text-2xl font-bold text-white mb-1">
-                    {stat.value}
-                  </p>
-                  <p className="text-white/70 text-xs md:text-sm mb-1">
-                    {stat.label}
-                  </p>
-                  <p className="text-white/50 text-xs">{stat.change}</p>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Mobile Tab Navigation */}
-          <div
-            className={`mb-6 md:mb-8 transform transition-all duration-1000 delay-500 ${
-              isLoaded
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
-          >
-            <div className="glass-morphism p-3 md:p-4 rounded-xl">
-              <div className="flex space-x-1 md:space-x-2 overflow-x-auto">
-                {workspaceTabs.map(tab => {
-                  const Icon = tab.icon;
-                  return (
-                    <Button
-                      key={tab.id}
-                      variant={activeTab === tab.id ? "default" : "ghost"}
-                      onClick={() => setActiveTab(tab.id)}
-                      className={`flex-shrink-0 text-xs md:text-sm ${
-                        activeTab === tab.id
-                          ? "bg-green-500 text-white saintvision-glow"
-                          : "text-white/70 hover:text-green-300"
-                      } px-3 md:px-4 h-9 md:h-10`}
-                    >
-                      <Icon className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2" />
-                      <span className="hidden sm:inline">{tab.label}</span>
-                      <span className="sm:hidden">
-                        {tab.label.split(" ")[0]}
-                      </span>
-                    </Button>
-                  );
-                })}
-              </div>
+    <WorkspaceLayout
+      pageTitle="Team Workspace"
+      pageDescription={`Manage your team's ${isPartnerTechWorkspace ? "CRM automation and AI agents with PartnerTech.ai's" : "SaintSal™ AI workspace with"} collaborative features, usage analytics, and enterprise controls.`}
+      breadcrumbs={breadcrumbs}
+      headerActions={headerActions}
+      className="bg-gray-50"
+    >
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Welcome Header */}
+        <div className="mb-8">
+          <div className="flex items-center space-x-4 mb-6">
+            <div className={`w-16 h-16 ${isPartnerTechWorkspace ? "bg-gradient-to-br from-blue-500 to-emerald-500" : "bg-gradient-to-br from-gold-400 to-gold-600"} rounded-2xl flex items-center justify-center`}>
+              <Users2 className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">{workspaceName}</h1>
+              <p className="text-lg text-gray-600">
+                {isPartnerTechWorkspace ? "PartnerTech.ai CRM Workspace" : "SaintVisionAI Team Workspace"}
+              </p>
             </div>
           </div>
+        </div>
 
-          {/* Tab Content */}
-          <div
-            className={`transform transition-all duration-1000 delay-700 ${
-              isLoaded
-                ? "translate-y-0 opacity-100"
-                : "translate-y-10 opacity-0"
-            }`}
-          >
-            {activeTab === "overview" && (
-              <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
-                {/* Main Content */}
-                <div className="lg:col-span-2 space-y-6 md:space-y-8">
-                  {/* Team Members Overview */}
-                  <div className="glass-morphism rounded-xl overflow-hidden">
-                    <div className="p-4 md:p-6 border-b border-white/10">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-lg md:text-xl font-bold">
-                          Team Members
-                        </h3>
-                        <Button
-                          size="sm"
-                          className="bg-green-500 text-white hover:bg-green-400 saintvision-glow"
-                        >
-                          <UserPlus className="w-4 h-4 mr-2" />
-                          Add Member
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="divide-y divide-white/10">
-                      {teamMembers.slice(0, 4).map((member, index) => (
-                        <div
-                          key={index}
-                          className="p-4 hover:bg-white/5 transition-colors"
-                        >
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
-                              <Avatar className="w-8 h-8 md:w-10 md:h-10">
-                                <AvatarFallback className="bg-gold-500 text-charcoal-900 font-bold text-xs md:text-sm">
-                                  {member.name
-                                    .split(" ")
-                                    .map(n => n[0])
-                                    .join("")}
-                                </AvatarFallback>
-                              </Avatar>
-                              <div>
-                                <p className="font-medium text-sm md:text-base">
-                                  {member.name}
-                                </p>
-                                <p className="text-white/60 text-xs md:text-sm">
-                                  {member.email}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Badge
-                                className={`${getRoleColor(
-                                  member.role,
-                                )} text-xs`}
-                              >
-                                {member.role}
-                              </Badge>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="text-white/70 hover:text-white p-1"
-                              >
-                                <MoreVertical className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {workspaceStats.map((stat, index) => {
+            const Icon = stat.icon;
+            return (
+              <Card key={index} className="border-2 hover:shadow-md transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`w-10 h-10 ${stat.bg} rounded-lg flex items-center justify-center`}>
+                      <Icon className={`w-5 h-5 ${stat.color}`} />
                     </div>
                   </div>
-
-                  {/* Usage Analytics */}
-                  <div className="glass-morphism p-4 md:p-6 rounded-xl">
-                    <h3 className="text-lg md:text-xl font-bold mb-4 md:mb-6">
-                      Usage Analytics
-                    </h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                      <div className="text-center p-4 bg-white/5 rounded-lg">
-                        <p className="text-2xl md:text-3xl font-bold text-blue-300 mb-1">
-                          12,847
-                        </p>
-                        <p className="text-white/70 text-sm">
-                          Total Conversations
-                        </p>
-                      </div>
-                      <div className="text-center p-4 bg-white/5 rounded-lg">
-                        <p className="text-2xl md:text-3xl font-bold text-green-300 mb-1">
-                          2.4M
-                        </p>
-                        <p className="text-white/70 text-sm">Tokens Used</p>
-                      </div>
-                      <div className="text-center p-4 bg-white/5 rounded-lg col-span-2 md:col-span-1">
-                        <p className="text-2xl md:text-3xl font-bold text-gold-300 mb-1">
-                          94.2%
-                        </p>
-                        <p className="text-white/70 text-sm">Success Rate</p>
-                      </div>
-                    </div>
+                  <div className="space-y-1">
+                    <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                    <p className="text-sm font-medium text-gray-900">{stat.label}</p>
+                    <p className="text-xs text-gray-500">{stat.change}</p>
                   </div>
-                </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
 
-                {/* Sidebar */}
-                <div className="lg:col-span-1 space-y-6 md:space-y-8">
-                  {/* Recent Activity */}
-                  <div className="glass-morphism p-4 md:p-6 rounded-xl">
-                    <h3 className="text-lg font-bold mb-4 md:mb-6">
-                      Recent Activity
-                    </h3>
-                    <div className="space-y-3 md:space-y-4">
-                      {recentActivity.map((activity, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-3 p-3 bg-white/5 rounded-lg"
-                        >
-                          <div className="w-6 h-6 md:w-8 md:h-8 bg-gold-500/20 rounded-full flex items-center justify-center">
-                            <Activity className="w-3 h-3 md:w-4 md:h-4 text-gold-300" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="font-medium text-sm">
-                              {activity.user}
-                            </p>
-                            <p className="text-white/70 text-xs truncate">
-                              {activity.action}
-                            </p>
-                            <p className="text-white/50 text-xs">
-                              {activity.time}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+        {/* Main Content Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-4 mb-8">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="members">Members</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
+          </TabsList>
 
-                  {/* Quick Actions */}
-                  <div className="glass-morphism p-4 md:p-6 rounded-xl">
-                    <h3 className="text-lg font-bold mb-4 md:mb-6">
-                      Quick Actions
-                    </h3>
-                    <div className="space-y-3">
-                      <Button className="w-full justify-start bg-green-500 text-white hover:bg-green-400 saintvision-glow h-10 md:h-12">
+          <TabsContent value="overview" className="space-y-8">
+            <div className="grid lg:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-2 space-y-8">
+                {/* Team Members Overview */}
+                <Card>
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle className="text-xl">Team Members</CardTitle>
+                        <CardDescription>Manage your team and their access</CardDescription>
+                      </div>
+                      <Button className="bg-green-500 hover:bg-green-600 text-white">
                         <UserPlus className="w-4 h-4 mr-2" />
-                        Invite Team Member
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start border-gold-400/60 text-gold-200 hover:bg-gold-500/20 hover:text-gold-100 h-10 md:h-12"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        Export Data
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full justify-start border-gold-400/60 text-gold-200 hover:bg-gold-500/20 hover:text-gold-100 h-10 md:h-12"
-                      >
-                        <Settings className="w-4 h-4 mr-2" />
-                        Workspace Settings
+                        Add Member
                       </Button>
                     </div>
-                  </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {teamMembers.slice(0, 4).map((member, index) => (
+                        <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                          <div className="flex items-center space-x-3">
+                            <Avatar className="w-10 h-10">
+                              <AvatarFallback className="bg-gold-500 text-white font-bold">
+                                {member.name.split(" ").map(n => n[0]).join("")}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div>
+                              <p className="font-medium text-gray-900">{member.name}</p>
+                              <p className="text-sm text-gray-600">{member.email}</p>
+                              <p className="text-xs text-gray-500">Last active: {member.lastActive}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Badge className={getRoleColor(member.role)}>
+                              {member.role}
+                            </Badge>
+                            <Badge className={getStatusColor(member.status)}>
+                              {member.status}
+                            </Badge>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
 
-                  {/* Plan Info */}
-                  <div className="glass-morphism p-4 md:p-6 rounded-xl">
-                    <h3 className="text-lg font-bold mb-4">Current Plan</h3>
+                {/* Quick Actions */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl">Quick Actions</CardTitle>
+                    <CardDescription>Common workspace tasks</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <Button variant="outline" className="h-16 flex-col">
+                        <PlayCircle className="w-6 h-6 mb-1" />
+                        <span>Start AI Session</span>
+                      </Button>
+                      <Button variant="outline" className="h-16 flex-col">
+                        <FileText className="w-6 h-6 mb-1" />
+                        <span>Create Project</span>
+                      </Button>
+                      <Button variant="outline" className="h-16 flex-col">
+                        <Download className="w-6 h-6 mb-1" />
+                        <span>Export Data</span>
+                      </Button>
+                      <Button variant="outline" className="h-16 flex-col">
+                        <Settings className="w-6 h-6 mb-1" />
+                        <span>Workspace Settings</span>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Sidebar */}
+              <div className="lg:col-span-1 space-y-8">
+                {/* Recent Activity */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Recent Activity</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {recentActivity.map((activity, index) => {
+                        const Icon = activity.icon;
+                        return (
+                          <div key={index} className="flex items-start space-x-3">
+                            <div className="w-8 h-8 bg-gold-100 rounded-full flex items-center justify-center">
+                              <Icon className="w-4 h-4 text-gold-600" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-gray-900">{activity.user}</p>
+                              <p className="text-sm text-gray-600">{activity.action}</p>
+                              <p className="text-xs text-gray-500">{activity.time}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Plan Info */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Current Plan</CardTitle>
+                  </CardHeader>
+                  <CardContent>
                     <div className="text-center mb-4">
-                      <Badge className="bg-green-500/20 text-green-300 border-green-500/30 mb-2">
+                      <Badge className="bg-green-100 text-green-800 mb-2">
                         Enterprise
                       </Badge>
-                      <p className="text-2xl font-bold">$497/month</p>
-                      <p className="text-white/70 text-sm">
-                        Up to 50 team members
-                      </p>
+                      <p className="text-2xl font-bold text-gray-900">$497/month</p>
+                      <p className="text-sm text-gray-600">Up to 50 team members</p>
                     </div>
-                    <Button
-                      variant="outline"
-                      className="w-full border-gold-500 text-gold-300 hover:bg-gold-500 hover:text-charcoal-900"
-                    >
+                    <Button variant="outline" className="w-full">
                       <ArrowUpRight className="w-4 h-4 mr-2" />
                       Upgrade Plan
                     </Button>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               </div>
-            )}
+            </div>
+          </TabsContent>
 
-            {activeTab === "members" && (
-              <div className="glass-morphism rounded-xl overflow-hidden">
-                <div className="p-4 md:p-6 border-b border-white/10">
-                  <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-                    <h3 className="text-lg md:text-xl font-bold">
-                      Team Members ({teamMembers.length})
-                    </h3>
-                    <div className="flex items-center space-x-2 w-full md:w-auto">
-                      <div className="relative flex-1 md:flex-none md:w-64">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/40" />
-                        <Input
-                          placeholder="Search members..."
-                          className="bg-white/5 border-white/20 text-white placeholder:text-white/50 focus:border-gold-500 pl-10 h-9"
-                        />
-                      </div>
-                      <Button
-                        size="sm"
-                        className="bg-green-500 text-white hover:bg-green-400 saintvision-glow h-9"
-                      >
-                        <UserPlus className="w-4 h-4 mr-2" />
-                        Invite
-                      </Button>
+          <TabsContent value="members" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+                  <div>
+                    <CardTitle className="text-xl">Team Members ({teamMembers.length})</CardTitle>
+                    <CardDescription>Manage your team and their permissions</CardDescription>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <Input placeholder="Search members..." className="pl-10 w-64" />
                     </div>
+                    <Button className="bg-green-500 hover:bg-green-600 text-white">
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      Invite
+                    </Button>
                   </div>
                 </div>
-                <div className="divide-y divide-white/10">
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
                   {teamMembers.map((member, index) => (
-                    <div
-                      key={index}
-                      className="p-4 hover:bg-white/5 transition-colors"
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <Avatar className="w-10 h-10">
-                            <AvatarFallback className="bg-gold-500 text-charcoal-900 font-bold">
-                              {member.name
-                                .split(" ")
-                                .map(n => n[0])
-                                .join("")}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <p className="font-medium">{member.name}</p>
-                            <p className="text-white/60 text-sm">
-                              {member.email}
-                            </p>
-                            <p className="text-white/50 text-xs">
-                              Last active: {member.lastActive}
-                            </p>
-                          </div>
+                    <div key={index} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <Avatar className="w-12 h-12">
+                          <AvatarFallback className="bg-gold-500 text-white font-bold">
+                            {member.name.split(" ").map(n => n[0]).join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <p className="font-medium text-gray-900">{member.name}</p>
+                          <p className="text-sm text-gray-600">{member.email}</p>
+                          <p className="text-xs text-gray-500">Last active: {member.lastActive} • {member.usage}</p>
                         </div>
-                        <div className="flex items-center space-x-2 text-right">
-                          <div className="hidden md:block">
-                            <p className="text-white/80 text-sm">
-                              {member.usage}
-                            </p>
-                          </div>
-                          <Badge className={getRoleColor(member.role)}>
-                            {member.role}
-                          </Badge>
-                          <Badge className={getStatusColor(member.status)}>
-                            {member.status}
-                          </Badge>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-white/70 hover:text-white"
-                          >
-                            <MoreVertical className="w-4 h-4" />
-                          </Button>
-                        </div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Badge className={getRoleColor(member.role)}>
+                          {member.role}
+                        </Badge>
+                        <Badge className={getStatusColor(member.status)}>
+                          {member.status}
+                        </Badge>
+                        <Button variant="ghost" size="sm">
+                          <MoreVertical className="w-4 h-4" />
+                        </Button>
                       </div>
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="analytics" className="space-y-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card className="md:col-span-2 lg:col-span-3">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center">
+                    <PieChart className="w-5 h-5 mr-2" />
+                    Usage Analytics
+                  </CardTitle>
+                  <CardDescription>Detailed breakdown of workspace usage</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="text-center p-6 bg-blue-50 rounded-lg">
+                      <p className="text-3xl font-bold text-blue-600 mb-2">12,847</p>
+                      <p className="text-sm text-blue-800">Total Conversations</p>
+                      <p className="text-xs text-blue-600 mt-1">+23% from last month</p>
+                    </div>
+                    <div className="text-center p-6 bg-green-50 rounded-lg">
+                      <p className="text-3xl font-bold text-green-600 mb-2">2.4M</p>
+                      <p className="text-sm text-green-800">Tokens Used</p>
+                      <p className="text-xs text-green-600 mt-1">89% of quota</p>
+                    </div>
+                    <div className="text-center p-6 bg-purple-50 rounded-lg">
+                      <p className="text-3xl font-bold text-purple-600 mb-2">94.2%</p>
+                      <p className="text-sm text-purple-800">Success Rate</p>
+                      <p className="text-xs text-purple-600 mt-1">+1.2% improvement</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="settings" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Workspace Settings</CardTitle>
+                <CardDescription>Configure your workspace preferences</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Workspace Name
+                  </label>
+                  <Input value={workspaceName} className="max-w-md" />
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Default AI Model
+                  </label>
+                  <select className="border border-gray-300 rounded-md px-3 py-2 max-w-md">
+                    <option>GPT-4o</option>
+                    <option>GPT-4</option>
+                    <option>Claude-3</option>
+                  </select>
+                </div>
+
+                <div className="flex items-center justify-between py-4 border-t border-gray-200">
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-900">Enable notifications</h3>
+                    <p className="text-sm text-gray-500">Get notified about workspace activity</p>
+                  </div>
+                  <input type="checkbox" defaultChecked className="toggle" />
+                </div>
+
+                <div className="pt-4">
+                  <Button className="bg-gold-500 hover:bg-gold-600 text-white">
+                    Save Changes
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-    </div>
+    </WorkspaceLayout>
   );
 }

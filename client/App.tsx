@@ -48,6 +48,11 @@ import SaintVisionGroup from "./pages/SaintVisionGroup";
 import BuilderPageHandler from "./pages/BuilderPageHandler";
 import { initializeBuilderComprehensive } from "./lib/builder-init";
 
+// New workspace and documentation pages
+import APIDocumentation from "./pages/APIDocumentation";
+import WhiteLabel from "./pages/WhiteLabel";
+import About from "./pages/About";
+
 // Initialize Builder.io with comprehensive settings
 initializeBuilderComprehensive();
 
@@ -98,6 +103,11 @@ const App = () => (
           {/* SaintVision pages */}
           <Route path="/saintvision" element={<SaintVisionHomepage />} />
           <Route path="/saintvisiongroup" element={<SaintVisionGroup />} />
+
+          {/* Business & Documentation Routes */}
+          <Route path="/docs/api" element={<APIDocumentation />} />
+          <Route path="/white-label" element={<WhiteLabel />} />
+          <Route path="/about" element={<About />} />
 
           {/* Builder.io dynamic pages for content management */}
           <Route path="/builder/*" element={<BuilderPageHandler />} />
