@@ -26,7 +26,7 @@ export const SaintVisionNavigation = ({
   logoText = "SaintVisionAI™",
   tagline = "Cookin' Knowledge",
   links = [
-    { text: "Dashboard", url: "/dashboard" },
+    { text: "Workspace", url: "/workspace" },
     { text: "Pricing", url: "/pricing" },
     { text: "Why Us", url: "/why" },
     { text: "Help", url: "/help" }
@@ -34,7 +34,7 @@ export const SaintVisionNavigation = ({
   ctaButton1Text = "Sign In",
   ctaButton1Link = "/signin",
   ctaButton2Text = "Start Cookin'",
-  ctaButton2Link = "/dashboard"
+  ctaButton2Link = "/workspace"
 }: SaintVisionNavigationProps) => {
   return (
     <nav className="relative z-50 flex items-center justify-between p-6 lg:px-12">
@@ -79,13 +79,13 @@ export const SaintVisionNavigation = ({
             <span>{link.text}</span>
           </Link>
         ))}
-        
+
         <Link to={ctaButton1Link}>
           <Button className="text-cyan-400 hover:text-cyan-300 transition-colors duration-200 bg-transparent border-none shadow-none hover:bg-transparent font-semibold hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)]">
             {ctaButton1Text}
           </Button>
         </Link>
-        
+
         <Link to={ctaButton2Link}>
           <Button className="text-yellow-400 hover:text-yellow-300 transition-colors duration-200 bg-transparent border-none shadow-none hover:bg-transparent font-semibold hover:drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]">
             {ctaButton2Text}

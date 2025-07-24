@@ -22,7 +22,7 @@ export const SaintVisionHero = ({
   subtitle = "Cookin' Knowledge.",
   description = "AI doesn't just answer. It adapts. It empowers. It becomes your enterprise companion.",
   ctaText = "Start Cookin' Knowledge",
-  ctaLink = "/dashboard",
+  ctaLink = "/workspace",
   secondaryCtaText = "Try CRM Tools",
   secondaryCtaLink = "/partnertech",
   backgroundImage = "https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F317f7c64793d47ab90d506bd066bedbb?format=webp&width=800",

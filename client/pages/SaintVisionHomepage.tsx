@@ -38,12 +38,12 @@ export default function SaintVisionHomepage() {
   return (
     <div className="min-h-screen bg-charcoal-900">
       {/* Navigation */}
-      <SaintVisionNavigation 
+      <SaintVisionNavigation
         logoImage="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F43517f7e94d44c8495e4734412e8899d"
         logoText="SaintVisionAI™"
         tagline="Cookin' Knowledge"
         links={[
-          { text: 'Dashboard', url: '/dashboard' },
+          { text: 'Workspace', url: '/workspace' },
           { text: 'Pricing', url: '/pricing' },
           { text: 'Why Us', url: '/why' },
           { text: 'Help', url: '/help' },
@@ -55,12 +55,12 @@ export default function SaintVisionHomepage() {
       />
 
       {/* Hero Section - Clean without logo blocking */}
-      <SaintVisionHero 
+      <SaintVisionHero
         title="SaintSal™"
         subtitle="Cookin' Knowledge."
         description="AI doesn't just answer. It adapts. It empowers. It becomes your enterprise companion."
         ctaText="Start Cookin' Knowledge"
-        ctaLink="/dashboard"
+        ctaLink="/workspace"
         secondaryCtaText="Try CRM Tools"
         secondaryCtaLink="/partnertech"
         backgroundImage="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F317f7c64793d47ab90d506bd066bedbb?format=webp&width=800"
@@ -88,7 +88,7 @@ export default function SaintVisionHomepage() {
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">HACP™ Technology</h3>
               <p className="text-white/80 mb-4">
-                Our patent-pending Hierarchical Adaptive Cognitive Processing enables 10-20x faster AI learning. 
+                Our patent-pending Hierarchical Adaptive Cognitive Processing enables 10-20x faster AI learning.
                 This isn't just another chatbot - it's cognitive evolution.
               </p>
               <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/30">
@@ -103,7 +103,7 @@ export default function SaintVisionHomepage() {
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">Native Integration</h3>
               <p className="text-white/80 mb-4">
-                Seamlessly integrates with your existing workflow. No complex setup, no learning curve. 
+                Seamlessly integrates with your existing workflow. No complex setup, no learning curve.
                 Just natural, powerful AI that feels like it belongs.
               </p>
               <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30">
@@ -118,7 +118,7 @@ export default function SaintVisionHomepage() {
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">Enterprise Security</h3>
               <p className="text-white/80 mb-4">
-                Bank-level encryption, SOC 2 compliance, and GDPR adherence. Your data stays yours, 
+                Bank-level encryption, SOC 2 compliance, and GDPR adherence. Your data stays yours,
                 with the security standards that enterprises demand.
               </p>
               <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
@@ -141,7 +141,7 @@ export default function SaintVisionHomepage() {
               Elite Technology
             </h2>
             <p className="text-xl text-white/80 max-w-4xl mx-auto">
-              Dual AI systems powered by GPT-4o and Azure OpenAI handle your business operations 
+              Dual AI systems powered by GPT-4o and Azure OpenAI handle your business operations
               while you focus on what matters - growing your empire.
             </p>
           </div>
@@ -155,7 +155,7 @@ export default function SaintVisionHomepage() {
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Dual AI Architecture</h3>
                   <p className="text-white/70">
-                    GPT-4o for lightning-fast responses, Azure OpenAI for enterprise-grade processing. 
+                    GPT-4o for lightning-fast responses, Azure OpenAI for enterprise-grade processing.
                     Best of both worlds, seamlessly integrated.
                   </p>
                 </div>
@@ -168,7 +168,7 @@ export default function SaintVisionHomepage() {
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Cognitive Memory</h3>
                   <p className="text-white/70">
-                    Your AI learns and remembers. Every interaction makes it smarter, more personalized, 
+                    Your AI learns and remembers. Every interaction makes it smarter, more personalized,
                     more valuable to your specific needs.
                   </p>
                 </div>
@@ -181,7 +181,7 @@ export default function SaintVisionHomepage() {
                 <div>
                   <h3 className="text-xl font-bold text-white mb-2">Adaptive Intelligence</h3>
                   <p className="text-white/70">
-                    HACP™ technology enables real-time adaptation to your business patterns, 
+                    HACP™ technology enables real-time adaptation to your business patterns,
                     industry requirements, and personal preferences.
                   </p>
                 </div>
@@ -221,7 +221,7 @@ export default function SaintVisionHomepage() {
               PartnerTech.ai Integration
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Complete CRM automation suite that transforms how you manage customers, 
+              Complete CRM automation suite that transforms how you manage customers,
               campaigns, and revenue operations.
             </p>
           </div>
@@ -297,7 +297,7 @@ export default function SaintVisionHomepage() {
               Security & Safety First
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Your data security is our priority. We implement multiple layers of protection 
+              Your data security is our priority. We implement multiple layers of protection
               to ensure your information stays safe and compliant.
             </p>
           </div>
@@ -409,7 +409,7 @@ export default function SaintVisionHomepage() {
               Where Magic Unlocks
             </h2>
             <p className="text-2xl text-white/90 max-w-4xl mx-auto mb-8">
-              Join thousands who've discovered what happens when AI doesn't just assist - it amplifies. 
+              Join thousands who've discovered what happens when AI doesn't just assist - it amplifies.
               This is where possibilities become reality.
             </p>
           </div>
@@ -421,14 +421,14 @@ export default function SaintVisionHomepage() {
                   <Crown className="w-12 h-12 text-white" />
                 </div>
               </div>
-              
+
               <h3 className="text-3xl font-bold text-white mb-4">Pro Plan - $97/month</h3>
               <p className="text-xl text-gold-300 mb-8">🔥 WHERE ALL THE MAGIC UNLOCKS!</p>
-              
+
               <div className="grid md:grid-cols-2 gap-6 text-left mb-8">
                 {[
                   "Dual AI system (GPT-4o + Azure)",
-                  "Voice & SMS integration", 
+                  "Voice & SMS integration",
                   "Full CRM access (GHL)",
                   "PartnerTech integration",
                   "Priority support",
