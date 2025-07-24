@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { WorkspaceLayout } from "@/components/WorkspaceLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,6 +41,7 @@ import {
 } from "lucide-react";
 
 export default function Workspace() {
+  const navigate = useNavigate();
   const [isLoaded, setIsLoaded] = useState(false);
   const [workspaceName] = useState("Acme Corp Workspace");
   const [activeTab, setActiveTab] = useState("overview");
@@ -288,7 +290,13 @@ export default function Workspace() {
                         <CardTitle className="text-xl">Team Members</CardTitle>
                         <CardDescription>Manage your team and their access</CardDescription>
                       </div>
-                      <Button className="bg-green-500 hover:bg-green-600 text-white">
+                      <Button
+                        className="bg-green-500 hover:bg-green-600 text-white"
+                        onClick={() => {
+                          // Open invite modal or navigate to invite page
+                          window.open(`mailto:?subject=Join our workspace&body=You're invited to join our SaintVisionAI workspace!`, '_blank');
+                        }}
+                      >
                         <UserPlus className="w-4 h-4 mr-2" />
                         Add Member
                       </Button>
@@ -332,19 +340,55 @@ export default function Workspace() {
                   </CardHeader>
                   <CardContent>
                     <div className="grid md:grid-cols-2 gap-4">
-                      <Button variant="outline" className="h-16 flex-col">
+                      <Button
+                        variant="outline"
+                        className="h-16 flex-col"
+                        onClick={() => navigate('/workspace-chat')}
+                      >
                         <PlayCircle className="w-6 h-6 mb-1" />
                         <span>Start AI Session</span>
                       </Button>
-                      <Button variant="outline" className="h-16 flex-col">
+                      <Button
+                        variant="outline"
+                        className="h-16 flex-col"
+                        onClick={() => {
+                          // Create new project logic
+                          const projectName = prompt('Enter project name:');
+                          if (projectName) {
+                            console.log('Creating project:', projectName);
+                            // Add project creation logic here
+                          }
+                        }}
+                      >
                         <FileText className="w-6 h-6 mb-1" />
                         <span>Create Project</span>
                       </Button>
-                      <Button variant="outline" className="h-16 flex-col">
+                      <Button
+                        variant="outline"
+                        className="h-16 flex-col"
+                        onClick={() => {
+                          // Export workspace data
+                          const data = {
+                            workspace: workspaceName,
+                            members: teamMembers.length,
+                            exportedAt: new Date().toISOString()
+                          };
+                          const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                          const url = URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = url;
+                          a.download = 'workspace-data.json';
+                          a.click();
+                        }}
+                      >
                         <Download className="w-6 h-6 mb-1" />
                         <span>Export Data</span>
                       </Button>
-                      <Button variant="outline" className="h-16 flex-col">
+                      <Button
+                        variant="outline"
+                        className="h-16 flex-col"
+                        onClick={() => setActiveTab('settings')}
+                      >
                         <Settings className="w-6 h-6 mb-1" />
                         <span>Workspace Settings</span>
                       </Button>
@@ -504,7 +548,7 @@ export default function Workspace() {
                   </label>
                   <Input value={workspaceName} className="max-w-md" />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Default AI Model
@@ -525,7 +569,15 @@ export default function Workspace() {
                 </div>
 
                 <div className="pt-4">
-                  <Button className="bg-gold-500 hover:bg-gold-600 text-white">
+                  <Button
+                    className="bg-gold-500 hover:bg-gold-600 text-white"
+                    onClick={() => {
+                      // Save workspace settings
+                      console.log('Saving workspace settings...');
+                      // Add save logic here - could integrate with backend
+                      alert('Workspace settings saved successfully!');
+                    }}
+                  >
                     Save Changes
                   </Button>
                 </div>

@@ -119,7 +119,7 @@ export default function WorkspaceChat() {
 
     try {
       const response = await ChatAPI.sendMessage(currentMessage, activeConversation);
-      
+
       if (response.status === 'success') {
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
@@ -130,7 +130,7 @@ export default function WorkspaceChat() {
         };
 
         setMessages(prev => [...prev, assistantMessage]);
-        
+
         if (!activeConversation) {
           setActiveConversation(response.data.conversationId);
           loadConversations();
@@ -153,7 +153,12 @@ export default function WorkspaceChat() {
 
   const startNewConversation = () => {
     setActiveConversation(null);
-    setMessages([]);
+    setMessages([{
+      id: 'welcome',
+      content: "👋 Hello! I'm your SaintSal AI companion. What would you like to work on today?",
+      role: 'assistant',
+      timestamp: new Date().toISOString(),
+    }]);
     inputRef.current?.focus();
   };
 
@@ -240,7 +245,7 @@ export default function WorkspaceChat() {
                 <Input placeholder="Search conversations..." className="pl-10" />
               </div>
             </div>
-            
+
             <ScrollArea className="flex-1 p-4">
               <div className="space-y-2">
                 {conversations.map((conversation) => (
@@ -282,9 +287,9 @@ export default function WorkspaceChat() {
                   <p className="text-sm text-gray-600">Your AI companion is ready to help</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-2">
-                <select 
+                <select
                   value={selectedModel}
                   onChange={(e) => setSelectedModel(e.target.value)}
                   className="text-sm border border-gray-200 rounded-lg px-3 py-1 bg-white"
@@ -305,7 +310,7 @@ export default function WorkspaceChat() {
                 <div className="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-600 rounded-3xl flex items-center justify-center mb-6">
                   <MessageSquare className="w-10 h-10 text-white" />
                 </div>
-                
+
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
                   Welcome to SaintSal AI Chat
                 </h3>
@@ -321,7 +326,10 @@ export default function WorkspaceChat() {
                       <div
                         key={tool.id}
                         className={`p-4 ${tool.bg} rounded-xl border border-gray-100 cursor-pointer hover:shadow-sm transition-shadow`}
-                        onClick={() => setCurrentMessage(`Use ${tool.name.toLowerCase()}: `)}
+                        onClick={() => {
+                          setCurrentMessage(`Use ${tool.name.toLowerCase()}: `);
+                          inputRef.current?.focus();
+                        }}
                       >
                         <Icon className={`w-6 h-6 ${tool.color} mb-2`} />
                         <h4 className="font-medium text-gray-900 text-sm">{tool.name}</h4>
@@ -368,7 +376,7 @@ export default function WorkspaceChat() {
                         </AvatarFallback>
                       )}
                     </Avatar>
-                    
+
                     <div className={`flex-1 max-w-none ${message.role === 'user' ? 'text-right' : ''}`}>
                       <div
                         className={`inline-block p-4 rounded-2xl ${
@@ -384,7 +392,7 @@ export default function WorkspaceChat() {
                           </p>
                         )}
                       </div>
-                      
+
                       <div className={`flex items-center mt-2 space-x-2 text-xs text-gray-500 ${
                         message.role === 'user' ? 'justify-end' : 'justify-start'
                       }`}>
@@ -406,7 +414,7 @@ export default function WorkspaceChat() {
                     </div>
                   </div>
                 ))}
-                
+
                 {isLoading && (
                   <div className="flex items-start space-x-3">
                     <Avatar className="w-8 h-8">
@@ -423,7 +431,7 @@ export default function WorkspaceChat() {
                     </div>
                   </div>
                 )}
-                
+
                 <div ref={messagesEndRef} />
               </div>
             )}
@@ -453,7 +461,7 @@ export default function WorkspaceChat() {
                     </Button>
                   </div>
                 </div>
-                
+
                 <Button
                   onClick={sendMessage}
                   disabled={!currentMessage.trim() || isLoading}
@@ -462,7 +470,7 @@ export default function WorkspaceChat() {
                   <Send className="w-4 h-4" />
                 </Button>
               </div>
-              
+
               <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
                 <span>Press Enter to send, Shift+Enter for new line</span>
                 <span>Free tier: Unlimited conversations</span>
