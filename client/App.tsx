@@ -33,11 +33,16 @@ import ResearchRedirect from "./pages/ResearchRedirect";
 import Why from "./pages/Why";
 import SaintSalYou from "./pages/SaintSalYou";
 import Hacp from "./pages/Hacp";
+import SystemArchitecture from "./pages/SystemArchitecture";
+import BrandLanding from "./pages/BrandLanding";
+import BuilderPage from "./pages/BuilderPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import RouteScanner from "./routes/index";
 
 // SaintVision Homepage
 import SaintVisionHomepage from "./pages/SaintVisionHomepage";
+import SaintVisionGroup from "./pages/SaintVisionGroup";
 
 // Builder.io integration
 import BuilderPageHandler from "./pages/BuilderPageHandler";
@@ -77,7 +82,7 @@ const App = () => (
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="/setup" element={<Setup />} />
           <Route path="/referral/invite" element={<ReferralInvite />} />
-          <Route path="/workspace/:slug" element={<Workspace />} />
+          <Route path="/workspace" element={<Workspace />} />
           <Route path="/workspace/notes" element={<StickyNotes />} />
           <Route path="/workspace/image-gen" element={<ImageGenerator />} />
           <Route path="/help" element={<Help />} />
@@ -85,9 +90,14 @@ const App = () => (
           <Route path="/why" element={<Why />} />
           <Route path="/saintsal-you" element={<SaintSalYou />} />
           <Route path="/hacp" element={<Hacp />} />
+          <Route path="/system-architecture" element={<SystemArchitecture />} />
+          <Route path="/brand-landing" element={<BrandLanding />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/builder-page" element={<BuilderPage />} />
 
-          {/* SaintVision Homepage route */}
+          {/* SaintVision pages */}
           <Route path="/saintvision" element={<SaintVisionHomepage />} />
+          <Route path="/saintvisiongroup" element={<SaintVisionGroup />} />
 
           {/* Builder.io dynamic pages for content management */}
           <Route path="/builder/*" element={<BuilderPageHandler />} />
