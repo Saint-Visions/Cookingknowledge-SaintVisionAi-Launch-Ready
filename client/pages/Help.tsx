@@ -109,31 +109,32 @@ export default function Help() {
 
   const quickActions = [
     {
-      title: "Live Chat Support",
-      description: "Get instant help from our support team",
+      title: "SuperSal AI CEO",
+      description: "24/7 AI business navigator and support",
+      icon: Crown,
+      action: "Talk to SuperSal",
+      available: true,
+      priority: true,
+    },
+    {
+      title: "Live Business Chat",
+      description: "Instant help from SuperSal's AI systems",
       icon: MessageSquare,
       action: "Start Chat",
       available: true,
     },
     {
       title: "Schedule a Call",
-      description: "Book a 1-on-1 session with our experts",
+      description: "Book a session with SuperSal",
       icon: Phone,
       action: "Book Now",
       available: true,
     },
     {
-      title: "Email Support",
-      description: "Send us a detailed message",
+      title: "Email SuperSal",
+      description: "Send SuperSal a detailed message",
       icon: Mail,
       action: "Send Email",
-      available: true,
-    },
-    {
-      title: "Video Tutorials",
-      description: "Watch step-by-step guides",
-      icon: Video,
-      action: "Watch Now",
       available: true,
     },
   ];
@@ -147,7 +148,7 @@ export default function Help() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(16, 22, 28, 0.98) 0%, rgba(16, 22, 28, 0.95) 100%), 
+          backgroundImage: `linear-gradient(135deg, rgba(16, 22, 28, 0.98) 0%, rgba(16, 22, 28, 0.95) 100%),
                            url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')`,
         }}
       ></div>
@@ -226,10 +227,21 @@ export default function Help() {
               <span className="text-gold-300">Help You?</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl text-white/80 mb-4 max-w-3xl mx-auto">
               Everything you need to master SaintSal™ and unlock the full power
               of your GOTTA GUY™ AI companion.
             </p>
+
+            <div className="mb-8 p-4 glass-morphism rounded-xl max-w-2xl mx-auto">
+              <div className="flex items-center justify-center space-x-3 mb-2">
+                <Crown className="w-6 h-6 text-gold-300" />
+                <span className="text-lg font-bold text-gold-300">SuperSal is Online</span>
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+              </div>
+              <p className="text-white/80 text-sm">
+                Your 24/7 AI CEO is ready to help with business operations, client support, and navigation
+              </p>
+            </div>
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto relative">
@@ -257,21 +269,39 @@ export default function Help() {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {quickActions.map((action, index) => {
                 const Icon = action.icon;
+                const isPriority = action.priority;
                 return (
                   <div
                     key={index}
-                    className="glass-morphism p-6 rounded-xl text-center hover:saintvision-glow transition-all group cursor-pointer"
+                    className={`glass-morphism p-6 rounded-xl text-center transition-all group cursor-pointer ${
+                      isPriority
+                        ? 'border-2 border-gold-500 bg-gold-500/10 hover:bg-gold-500/20 saintvision-glow'
+                        : 'hover:saintvision-glow'
+                    }`}
                   >
-                    <div className="w-16 h-16 bg-gold-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-gold-500/30 transition-colors">
-                      <Icon className="w-8 h-8 text-gold-300" />
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors ${
+                      isPriority
+                        ? 'bg-gold-500/30 group-hover:bg-gold-500/40'
+                        : 'bg-gold-500/20 group-hover:bg-gold-500/30'
+                    }`}>
+                      <Icon className={`w-8 h-8 ${isPriority ? 'text-gold-200' : 'text-gold-300'}`} />
+                      {isPriority && (
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
+                      )}
                     </div>
-                    <h3 className="font-semibold mb-2">{action.title}</h3>
+                    <h3 className={`font-semibold mb-2 ${isPriority ? 'text-gold-200' : ''}`}>
+                      {action.title}
+                    </h3>
                     <p className="text-white/70 text-sm mb-4">
                       {action.description}
                     </p>
                     <Button
                       size="sm"
-                      className="bg-gold-500 text-charcoal-900 hover:bg-gold-400"
+                      className={`${
+                        isPriority
+                          ? 'bg-gold-400 text-charcoal-900 hover:bg-gold-300 saintvision-glow'
+                          : 'bg-gold-500 text-charcoal-900 hover:bg-gold-400'
+                      }`}
                     >
                       {action.action}
                       <ArrowRight className="ml-2 w-4 h-4" />
@@ -505,16 +535,23 @@ export default function Help() {
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h4 className="font-semibold mb-4 text-gold-300">
-                    Contact Information
+                    SuperSal Support Channels
                   </h4>
                   <div className="space-y-4">
+                    <div className="flex items-center space-x-3 p-3 bg-gold-500/10 rounded-lg border border-gold-500/30">
+                      <Crown className="w-5 h-5 text-gold-300" />
+                      <div>
+                        <span className="font-semibold">SuperSal AI CEO</span>
+                        <div className="text-xs text-green-300">● 24/7 Online</div>
+                      </div>
+                    </div>
                     <div className="flex items-center space-x-3">
                       <Mail className="w-5 h-5 text-gold-300" />
-                      <span>support@saintvisionai.com</span>
+                      <span>supersal@saintvisionai.com</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <MessageSquare className="w-5 h-5 text-gold-300" />
-                      <span>Live Chat (24/7)</span>
+                      <span>AI Business Chat (Instant)</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <Phone className="w-5 h-5 text-gold-300" />
