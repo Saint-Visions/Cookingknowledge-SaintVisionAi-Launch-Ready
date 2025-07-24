@@ -52,6 +52,8 @@ import { initializeBuilderComprehensive } from "./lib/builder-init";
 import APIDocumentation from "./pages/APIDocumentation";
 import WhiteLabel from "./pages/WhiteLabel";
 import About from "./pages/About";
+import WorkspaceChat from "./pages/workspace-chat";
+import WorkspaceWarroomEnterprise from "./pages/workspace-warroom-enterprise";
 
 // Initialize Builder.io with comprehensive settings
 initializeBuilderComprehensive();
@@ -108,6 +110,10 @@ const App = () => (
           <Route path="/docs/api" element={<APIDocumentation />} />
           <Route path="/white-label" element={<WhiteLabel />} />
           <Route path="/about" element={<About />} />
+
+          {/* New Workspace Routes */}
+          <Route path="/workspace-chat" element={<WorkspaceChat />} />
+          <Route path="/workspace-warroom-enterprise" element={<WorkspaceWarroomEnterprise />} />
 
           {/* Builder.io dynamic pages for content management */}
           <Route path="/builder/*" element={<BuilderPageHandler />} />
