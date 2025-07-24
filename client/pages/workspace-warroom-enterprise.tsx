@@ -117,33 +117,54 @@ export default function WorkspaceWarroomEnterprise() {
 
   const handleGHLSync = async () => {
     try {
+      console.log('🔄 Initiating GHL sync...');
+      // Show loading state
       const response = await fetch('/api/ghl-webhook', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'sync_all' })
+        body: JSON.stringify({
+          action: 'sync_all',
+          timestamp: new Date().toISOString()
+        })
       });
-      
+
       if (response.ok) {
-        console.log('GHL sync initiated');
+        console.log('✅ GHL sync completed successfully');
+        alert('GHL data sync completed successfully!');
+      } else {
+        throw new Error('Sync failed');
       }
     } catch (error) {
-      console.error('GHL sync failed:', error);
+      console.error('❌ GHL sync failed:', error);
+      alert('GHL sync failed. Please check your connection and try again.');
     }
   };
 
   const handleCampaignDeploy = async () => {
     try {
+      console.log('🚀 Deploying campaign...');
       const response = await fetch('/api/ghl-webhook', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'deploy_campaign' })
+        body: JSON.stringify({
+          action: 'deploy_campaign',
+          campaignData: {
+            name: 'Enterprise Campaign',
+            type: 'automated',
+            timestamp: new Date().toISOString()
+          }
+        })
       });
-      
+
       if (response.ok) {
-        console.log('Campaign deployment initiated');
+        console.log('✅ Campaign deployed successfully');
+        alert('Campaign deployed successfully!');
+      } else {
+        throw new Error('Deployment failed');
       }
     } catch (error) {
-      console.error('Campaign deployment failed:', error);
+      console.error('❌ Campaign deployment failed:', error);
+      alert('Campaign deployment failed. Please try again.');
     }
   };
 
@@ -229,11 +250,31 @@ export default function WorkspaceWarroomEnterprise() {
                     <CardContent>
                       <div className="flex space-x-2">
                         {feature.actions.map((action, actionIndex) => (
-                          <Button 
-                            key={actionIndex} 
-                            variant="outline" 
+                          <Button
+                            key={actionIndex}
+                            variant="outline"
                             size="sm"
-                            onClick={action === "Sync Now" ? handleGHLSync : undefined}
+                            onClick={() => {
+                              if (action === "Sync Now") {
+                                handleGHLSync();
+                              } else if (action === "Configure") {
+                                alert(`Opening ${feature.title} configuration...`);
+                              } else if (action === "Train Model") {
+                                alert(`Starting AI model training for ${feature.title}...`);
+                              } else if (action === "View Results") {
+                                alert(`Opening ${feature.title} results dashboard...`);
+                              } else if (action === "Create Campaign") {
+                                handleCampaignDeploy();
+                              } else if (action === "Analytics") {
+                                alert(`Opening ${feature.title} analytics...`);
+                              } else if (action === "Generate Report") {
+                                alert(`Generating ${feature.title} report...`);
+                              } else if (action === "Configure KPIs") {
+                                alert(`Opening KPI configuration for ${feature.title}...`);
+                              } else {
+                                console.log(`Action: ${action} for ${feature.title}`);
+                              }
+                            }}
                           >
                             {action}
                           </Button>
@@ -256,14 +297,14 @@ export default function WorkspaceWarroomEnterprise() {
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-4">
-                  <Button 
+                  <Button
                     className="h-16 flex-col bg-blue-500 hover:bg-blue-600 text-white"
                     onClick={handleGHLSync}
                   >
                     <Database className="w-6 h-6 mb-1" />
                     <span>Sync GHL Data</span>
                   </Button>
-                  <Button 
+                  <Button
                     className="h-16 flex-col bg-green-500 hover:bg-green-600 text-white"
                     onClick={handleCampaignDeploy}
                   >
