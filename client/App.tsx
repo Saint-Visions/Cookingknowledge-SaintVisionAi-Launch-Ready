@@ -56,6 +56,7 @@ import WorkspaceChat from "./pages/workspace-chat";
 import WorkspaceWarroomEnterprise from "./pages/workspace-warroom-enterprise";
 import SaintVisionInstitute from "./pages/SaintVisionInstitute";
 import WorkspaceContent from "./pages/WorkspaceContent";
+import TestButtons from "./pages/TestButtons";
 
 // Initialize Builder.io with comprehensive settings
 initializeBuilderComprehensive();
@@ -117,6 +118,7 @@ const App = () => (
           <Route path="/workspace-chat" element={<WorkspaceChat />} />
           <Route path="/workspace-warroom-enterprise" element={<WorkspaceWarroomEnterprise />} />
           <Route path="/workspace-content" element={<WorkspaceContent />} />
+          <Route path="/test-buttons" element={<TestButtons />} />
 
           {/* SaintVision Institute */}
           <Route path="/saintvision-institute" element={<SaintVisionInstitute />} />
