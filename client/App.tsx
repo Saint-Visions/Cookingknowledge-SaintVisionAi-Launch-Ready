@@ -54,6 +54,8 @@ import WhiteLabel from "./pages/WhiteLabel";
 import About from "./pages/About";
 import WorkspaceChat from "./pages/workspace-chat";
 import WorkspaceWarroomEnterprise from "./pages/workspace-warroom-enterprise";
+import SaintVisionInstitute from "./pages/SaintVisionInstitute";
+import WorkspaceContent from "./pages/WorkspaceContent";
 
 // Initialize Builder.io with comprehensive settings
 initializeBuilderComprehensive();
@@ -114,6 +116,10 @@ const App = () => (
           {/* New Workspace Routes */}
           <Route path="/workspace-chat" element={<WorkspaceChat />} />
           <Route path="/workspace-warroom-enterprise" element={<WorkspaceWarroomEnterprise />} />
+          <Route path="/workspace-content" element={<WorkspaceContent />} />
+
+          {/* SaintVision Institute */}
+          <Route path="/saintvision-institute" element={<SaintVisionInstitute />} />
 
           {/* Builder.io dynamic pages for content management */}
           <Route path="/builder/*" element={<BuilderPageHandler />} />
