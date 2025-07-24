@@ -44,16 +44,9 @@ export const SaintVisionHero = ({
       {/* Hero Section */}
       <div className="relative z-40 flex flex-col items-center justify-center min-h-[80vh] text-center px-6">
         <div className="transform transition-all duration-1000">
-          {/* Main Logo/Brand */}
+          {/* Clean space - no logo blocking the beautiful background */}
           <div className="mb-8">
-            <div className="relative inline-block -mt-1 -mb-1">
-              <img
-                src={logoImage}
-                alt="SaintVisionAI Logo"
-                className="h-60 object-contain mx-auto mb-11"
-                style={{ width: "367px" }}
-              />
-            </div>
+            {/* Logo removed - let the background person/image shine through */}
           </div>
 
           {/* Hero Title */}
