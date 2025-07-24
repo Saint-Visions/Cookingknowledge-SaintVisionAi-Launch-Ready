@@ -51,7 +51,7 @@ export default function SaintVisionHomepage() {
         ctaButton1Text="Sign In"
         ctaButton1Link="/signin"
         ctaButton2Text="Start Cookin'"
-        ctaButton2Link="/dashboard"
+        ctaButton2Link="/workspace"
       />
 
       {/* Hero Section - Clean without logo blocking */}
