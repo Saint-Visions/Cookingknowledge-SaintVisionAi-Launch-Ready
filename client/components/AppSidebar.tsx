@@ -85,8 +85,17 @@ const navigationItems = [
     isActive: (pathname: string) => pathname.includes("svg"),
   },
   {
+    id: "supersal-ceo",
+    title: "SuperSal AI CEO",
+    href: "/help",
+    icon: Crown,
+    emoji: "👑",
+    category: "business",
+    isActive: (pathname: string) => pathname === "/help",
+  },
+  {
     id: "feedback-help",
-    title: "Feedback & Help",
+    title: "Business Support",
     href: "/help",
     icon: HelpCircle,
     emoji: "💬",

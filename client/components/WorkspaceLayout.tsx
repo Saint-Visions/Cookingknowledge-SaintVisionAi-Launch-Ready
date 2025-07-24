@@ -113,6 +113,15 @@ const navigationSections = [
     title: "Business",
     items: [
       {
+        id: "supersal",
+        title: "SuperSal AI CEO",
+        href: "/help",
+        icon: Crown,
+        description: "24/7 business navigator",
+        isActive: (pathname: string) => pathname === "/help",
+        badge: "24/7",
+      },
+      {
         id: "partnertech",
         title: "PartnerTech CRM",
         href: "/partnertech",
