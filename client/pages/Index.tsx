@@ -45,11 +45,11 @@ export default function Index() {
   }, []);
 
   // Plan-based routing logic for CTA buttons
-  const handleDashboardClick = () => {
+  const handleWorkspaceClick = () => {
     if (!isLoggedIn) {
       navigate("/signin");
     } else {
-      navigate("/dashboard");
+      navigate("/workspace");
     }
   };
 
@@ -73,7 +73,7 @@ export default function Index() {
       <div
         className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(16, 22, 28, 0.6) 0%, rgba(16, 22, 28, 0.5) 100%), 
+          backgroundImage: `linear-gradient(135deg, rgba(16, 22, 28, 0.6) 0%, rgba(16, 22, 28, 0.5) 100%),
                                                       url('https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F317f7c64793d47ab90d506bd066bedbb?format=webp&width=800')`,
           backgroundAttachment: "fixed",
           zIndex: 1,
@@ -109,10 +109,10 @@ export default function Index() {
 
         <div className="hidden md:flex items-center space-x-8">
           <Link
-            to="/dashboard"
+            to="/workspace"
             className="text-white/80 hover:text-gold-300 transition-colors"
           >
-            Dashboard
+            Workspace
           </Link>
           <Link
             to="/pricing"
@@ -142,7 +142,7 @@ export default function Index() {
               Sign In
             </Button>
           </Link>
-          <Link to="/dashboard">
+          <Link to="/workspace">
             <Button className="text-yellow-400 hover:text-yellow-300 transition-colors duration-200 bg-transparent border-none shadow-none hover:bg-transparent font-semibold hover:drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]">
               Start Cookin'
             </Button>
@@ -162,19 +162,9 @@ export default function Index() {
             isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
-          {/* Main Logo/Brand */}
+          {/* Clean space - no logo blocking the beautiful background */}
           <div className="mb-8">
-            <div className="relative inline-block -mt-1 -mb-1">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F5af1b2848cdd4695bab7fa0b4affb339"
-                alt="SaintVisionAI Logo"
-                className="h-60 object-contain mx-auto mb-11"
-                style={{
-                  width: "367px",
-                  filter: "brightness(1.2) contrast(1.1) saturate(1.1)",
-                }}
-              />
-            </div>
+            {/* Logo removed - let the background person/image shine through */}
           </div>
 
           {/* Hero Title */}
@@ -204,10 +194,10 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 mt-8">
             <Button
               size="lg"
-              onClick={handleDashboardClick}
+              onClick={() => navigate(isLoggedIn ? "/workspace" : "/signin")}
               className="text-yellow-400 hover:text-yellow-300 text-xl font-semibold transition-all duration-200 bg-transparent border-none shadow-none hover:bg-transparent group hover:drop-shadow-[0_0_12px_rgba(250,204,21,0.9)]"
             >
-              {isLoggedIn ? "Go to Dashboard" : "Start Cookin' Knowledge"}
+              {isLoggedIn ? "Go to Workspace" : "Start Cookin' Knowledge"}
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button
