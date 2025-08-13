@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { AppLayout } from "@/components/AppLayout";
+import DualAIChat from "@/components/DualAIChat";
 import { useUserPlan } from "@/hooks/use-plan-protection";
 import { useNavigate } from "react-router-dom";
 import {
