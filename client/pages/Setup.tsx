@@ -179,45 +179,29 @@ export default function Setup() {
         }}
       ></div>
 
-      {/* Header with Setup Wizard Title */}
-      <h1 className="relative z-50 text-xl font-bold saintvision-gradient-text p-6">
-        Setup Wizard
-      </h1>
-
-      <div className="relative z-50">
-        <div className="flex gap-5 px-6 max-md:flex-col max-md:gap-0">
-          <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
-            <div
-              className="flex items-center rounded-lg w-12 h-12 justify-center"
-              style={{
-                backgroundImage: "url(https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2F03050cb7e1e04ae4900626be9878764d)",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                boxShadow: "0 0 20px 0"
-              }}
+      {/* Clean Simple Header */}
+      <nav className="relative z-50 p-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2F03050cb7e1e04ae4900626be9878764d"
+              alt="SaintVisionAI Logo"
+              className="w-12 h-12 object-contain"
             />
-          </div>
-          <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div
-                  className="text-gold-300 text-xs ml-3 -mt-1"
-                  style={{ paddingTop: "-4px" }}
-                >
-                  SaintSal™ Onboarding
-                </div>
-              </div>
-              <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/30 px-3 py-1 text-sm font-semibold">
-                <span>Step </span>
-                <span>{currentStep}</span>
-                <span> of </span>
-                <span>{totalSteps}</span>
-              </Badge>
+            <div>
+              <h1 className="text-xl font-bold saintvision-gradient-text">
+                Setup Wizard
+              </h1>
+              <p className="text-xs text-gold-300 -mt-1">
+                SaintSal™ Onboarding
+              </p>
             </div>
           </div>
+          <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/30 text-sm">
+            Step {currentStep} of {totalSteps}
+          </Badge>
         </div>
-      </div>
+      </nav>
 
       <div className="relative z-40 px-4 md:px-6 pb-6">
         <div className="max-w-4xl mx-auto">
