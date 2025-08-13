@@ -35,11 +35,11 @@ const ROUTE_PLAN_MAP: Record<string, UserPlan[]> = {
 export function usePlanProtection(
   options: PlanProtectionOptions,
 ): UserPlanData {
-  const [plan, setPlan] = useState<UserPlan>("free");
-  const [isLoading, setIsLoading] = useState(true);
+  const [plan, setPlan] = useState<UserPlan>("enterprise"); // Demo mode: enterprise access
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const hasAccess = options.requiredPlan.includes(plan);
+  const hasAccess = true; // Demo mode: always allow access
 
   useEffect(() => {
     async function checkUserPlan() {
