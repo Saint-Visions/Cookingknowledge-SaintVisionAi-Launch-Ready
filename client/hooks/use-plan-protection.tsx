@@ -91,8 +91,8 @@ export function usePlanProtection(
 
 // Hook for getting current user plan without protection
 export function useUserPlan(): UserPlanData {
-  const [plan, setPlan] = useState<UserPlan>("free");
-  const [isLoading, setIsLoading] = useState(true);
+  const [plan, setPlan] = useState<UserPlan>("enterprise"); // Demo mode: default to enterprise
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function getUserPlan() {
