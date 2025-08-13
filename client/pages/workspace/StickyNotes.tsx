@@ -280,43 +280,97 @@ export default function StickyNotes() {
         </div>
 
         {/* Main Chat Area */}
-        <div className="flex-1 flex flex-col">
-          {/* Header */}
-          <div className="bg-charcoal-800 border-b border-white/10 p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-600 rounded-lg flex items-center justify-center saintvision-glow">
-                  <Zap className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h1 className="text-xl font-bold saintvision-gradient-text">
-                    Dual AI Workspace
-                  </h1>
-                  <p className="text-white/70 text-sm">
-                    GPT-4o + Azure • HACP™ Technology
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
-                  Both AI Active
-                </Badge>
-                <Button
-                  onClick={() => setIsCreating(true)}
-                  size="sm"
-                  className="bg-gold-500 hover:bg-gold-600 text-charcoal-900"
-                >
-                  <Plus className="w-4 h-4 mr-1" />
-                  Note
-                </Button>
-              </div>
+        <div className="flex-1 flex flex-col bg-charcoal-900">
+          {/* Header with GPT Toggle Buttons - Like screenshot */}
+          <div className="flex items-center justify-center p-4">
+            <div className="flex items-center bg-charcoal-800 rounded-lg p-1 border border-white/10">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="bg-white text-black hover:bg-white/90 rounded-md px-3 py-1 text-xs"
+              >
+                ⚪ GPT-3.5
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white/70 hover:text-white hover:bg-white/10 rounded-md px-3 py-1 text-xs"
+              >
+                ⚫ GPT-4
+              </Button>
             </div>
           </div>
 
-          {/* Dual AI Chat Interface */}
-          <div className="flex-1 overflow-hidden">
-            <DualAIChat />
+          {/* Center Content Area */}
+          <div className="flex-1 flex flex-col items-center justify-center p-8">
+            {/* Main Logo/Branding */}
+            <div className="text-center mb-8">
+              <h1 className="text-4xl font-bold text-white/20 mb-2">
+                Cookin
+              </h1>
+              <h2 className="text-5xl font-bold saintvision-gradient-text">
+                Knowledge
+              </h2>
+            </div>
+
+            {/* Example Prompts - Like screenshot */}
+            <div className="grid grid-cols-2 gap-4 max-w-2xl w-full mb-8">
+              <Button
+                variant="outline"
+                className="border-white/20 text-white/70 hover:bg-white/5 h-auto p-4 text-left justify-start"
+              >
+                <div>
+                  <div className="font-medium mb-1">Write a spreadsheet formula</div>
+                  <div className="text-xs text-white/50">to convert a date to the weekday</div>
+                </div>
+              </Button>
+              <Button
+                variant="outline"
+                className="border-white/20 text-white/70 hover:bg-white/5 h-auto p-4 text-left justify-start"
+              >
+                <div>
+                  <div className="font-medium mb-1">Suggest a twist ending</div>
+                  <div className="text-xs text-white/50">of a website's sticky header</div>
+                </div>
+              </Button>
+              <Button
+                variant="outline"
+                className="border-white/20 text-white/70 hover:bg-white/5 h-auto p-4 text-left justify-start"
+              >
+                <div>
+                  <div className="font-medium mb-1">Come up with a business name</div>
+                  <div className="text-xs text-white/50">for a retro-style arcade game</div>
+                </div>
+              </Button>
+              <Button
+                variant="outline"
+                className="border-white/20 text-white/70 hover:bg-white/5 h-auto p-4 text-left justify-start"
+              >
+                <div>
+                  <div className="font-medium mb-1">Plan a trip</div>
+                  <div className="text-xs text-white/50">to bring in a potluck</div>
+                </div>
+              </Button>
+            </div>
+          </div>
+
+          {/* Message Input - Like screenshot */}
+          <div className="p-4 border-t border-white/10">
+            <div className="max-w-4xl mx-auto relative">
+              <Input
+                placeholder="Send a message"
+                className="w-full bg-charcoal-800 border-white/20 text-white placeholder:text-white/50 pr-12 h-12 rounded-lg"
+              />
+              <Button
+                size="sm"
+                className="absolute right-2 top-2 bg-gold-500 hover:bg-gold-600 text-charcoal-900 w-8 h-8 p-0 rounded-md"
+              >
+                ➤
+              </Button>
+            </div>
+            <p className="text-xs text-white/40 text-center mt-2">
+              SaintGPT can make mistakes. Check important info.
+            </p>
           </div>
 
           {/* Quick Note Creation Overlay */}
