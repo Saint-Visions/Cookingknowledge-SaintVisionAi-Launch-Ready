@@ -1,40 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React from "react";
 import { AppLayout } from "@/components/AppLayout";
-import {
-  Plus,
-  Calendar,
-  Users,
-  BookOpen,
-  Brain,
-  Building2,
-  StickyNote,
-  Zap,
-  Image as ImageIcon,
-  Rocket,
-  MessageCircle,
-  MonitorSpeaker,
-  Crown,
-  GraduationCap,
-  TrendingUp,
-  User,
-  Sparkles,
-  ExternalLink,
-  BarChart3,
-  Target,
-  Phone,
-  Mail,
-  DollarSign,
-  Activity,
-  Globe,
-  Search,
-  Filter,
-  ArrowUpRight,
-  Calendar as CalendarIcon,
-  Settings,
-} from "lucide-react";
 
 export default function Workstation() {
   const [isLoaded, setIsLoaded] = useState(false);
