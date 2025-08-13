@@ -26,6 +26,7 @@ import CheckoutSuccess from "./pages/CheckoutSuccess";
 import Setup from "./pages/Setup";
 import ReferralInvite from "./pages/ReferralInvite";
 import Workspace from "./pages/Workspace";
+import Workstation from "./pages/Workstation";
 import StickyNotes from "./pages/workspace/StickyNotes";
 import ImageGenerator from "./pages/workspace/ImageGenerator";
 import Help from "./pages/Help";
