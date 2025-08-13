@@ -179,7 +179,7 @@ export default function Setup() {
         }}
       ></div>
 
-      {/* Header with Logo and Setup Wizard Title */}
+      {/* Header with Setup Wizard Title */}
       <h1 className="relative z-50 text-xl font-bold saintvision-gradient-text p-6">
         Setup Wizard
       </h1>
@@ -190,28 +190,31 @@ export default function Setup() {
             <div
               className="flex items-center rounded-lg w-12 h-12 justify-center"
               style={{
-                backgroundImage: "url(https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2Fd7b3731fc75749a2b0e0f22f6b2cdadc)",
+                backgroundImage: "url(https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2F03050cb7e1e04ae4900626be9878764d)",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
-                boxShadow: "0 0 30px 0"
+                boxShadow: "0 0 20px 0"
               }}
             />
           </div>
           <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
-            <nav className="relative z-50 p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center">
-                  <div className="ml-3" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div
+                  className="text-gold-300 text-xs ml-3 -mt-1"
+                  style={{ paddingTop: "-4px" }}
+                >
+                  SaintSal™ Onboarding
                 </div>
-                <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/30 px-3 py-1 text-sm font-semibold">
-                  <span>Step </span>
-                  <span>{currentStep}</span>
-                  <span> of </span>
-                  <span>{totalSteps}</span>
-                </Badge>
               </div>
-            </nav>
+              <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/30 px-3 py-1 text-sm font-semibold">
+                <span>Step </span>
+                <span>{currentStep}</span>
+                <span> of </span>
+                <span>{totalSteps}</span>
+              </Badge>
+            </div>
           </div>
         </div>
       </div>
