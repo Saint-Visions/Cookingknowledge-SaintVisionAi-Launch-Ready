@@ -198,108 +198,176 @@ export default function StickyNotes() {
 
   return (
     <AppLayout>
-      <div className="flex flex-col h-full bg-charcoal-900 text-white overflow-hidden">
-        {/* Header */}
-        <div className="bg-charcoal-800 border-b border-white/10 p-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center">
-                <StickyNote className="w-6 h-6 text-yellow-300" />
+      <div className="flex h-full bg-charcoal-900 text-white overflow-hidden">
+        {/* Sidebar - Quick Notes Access */}
+        <div className="w-64 bg-charcoal-800 border-r border-white/10 flex flex-col">
+          {/* Sidebar Header */}
+          <div className="p-4 border-b border-white/10">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gold-500/20 rounded-lg flex items-center justify-center">
+                <Brain className="w-4 h-4 text-gold-300" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold saintvision-gradient-text">
-                  Sticky Notes
-                </h1>
-                <p className="text-white/70">Quick notes & ideas</p>
+                <h3 className="font-semibold text-white">AI Workspace</h3>
+                <p className="text-xs text-white/60">Dual Intelligence</p>
               </div>
             </div>
+          </div>
 
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/40 w-4 h-4" />
-                  <Input
-                    placeholder="Search notes..."
-                    value={searchTerm}
-                    onChange={e => setSearchTerm(e.target.value)}
-                    className="pl-10 bg-white/5 border-white/20 w-64"
-                  />
-                </div>
+          {/* Quick Actions */}
+          <div className="p-4 space-y-2">
+            <Button
+              onClick={() => setIsCreating(true)}
+              variant="ghost"
+              className="w-full justify-start text-white/70 hover:text-white hover:bg-white/10"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Quick Note
+            </Button>
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-white/70 hover:text-white hover:bg-white/10"
+            >
+              <MessageSquare className="w-4 h-4 mr-2" />
+              Chat History
+            </Button>
+          </div>
 
-                <select
-                  value={selectedColor}
-                  onChange={e => setSelectedColor(e.target.value)}
-                  className="bg-white/5 border border-white/20 rounded-md px-3 py-2 text-white text-sm"
+          {/* Recent Notes */}
+          <div className="flex-1 overflow-y-auto p-4">
+            <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-3">
+              Recent Notes
+            </h4>
+            <div className="space-y-2">
+              {notes.slice(0, 5).map(note => (
+                <div
+                  key={note.id}
+                  className="p-3 rounded-lg bg-white/5 hover:bg-white/10 cursor-pointer transition-colors"
                 >
-                  <option value="all">All Colors</option>
-                  {colors.map(color => (
-                    <option key={color.name} value={color.name}>
-                      {color.name.charAt(0).toUpperCase() + color.name.slice(1)}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  <h5 className="text-sm font-medium text-white truncate">
+                    {note.title}
+                  </h5>
+                  <p className="text-xs text-white/60 truncate mt-1">
+                    {note.content}
+                  </p>
+                  <div className="flex items-center justify-between mt-2">
+                    <div className="flex items-center space-x-1">
+                      {note.tags.slice(0, 2).map(tag => (
+                        <Badge
+                          key={tag}
+                          variant="secondary"
+                          className="text-xs bg-white/10 text-white/70 px-1 py-0"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                    {note.pinned && <Pin className="w-3 h-3 text-gold-300" />}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-              <Button
-                onClick={() => setIsCreating(true)}
-                className="bg-gold-500 hover:bg-gold-600 text-charcoal-900"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                New Note
-              </Button>
+          {/* Stats */}
+          <div className="p-4 border-t border-white/10">
+            <div className="text-xs text-white/50 space-y-1">
+              <div className="flex justify-between">
+                <span>Notes</span>
+                <span>{notes.length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Pinned</span>
+                <span>{notes.filter(n => n.pinned).length}</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6">
-          {/* New Note Creation */}
-          {isCreating && (
-            <div className="mb-6 p-4 bg-white/5 rounded-lg border border-white/20">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Create New Note</h3>
-                <Button
-                  onClick={() => setIsCreating(false)}
-                  size="sm"
-                  variant="ghost"
-                  className="text-white/50 hover:text-white"
-                >
-                  <X className="w-4 h-4" />
-                </Button>
+        {/* Main Chat Area */}
+        <div className="flex-1 flex flex-col">
+          {/* Header */}
+          <div className="bg-charcoal-800 border-b border-white/10 p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-gold-500 to-gold-600 rounded-lg flex items-center justify-center saintvision-glow">
+                  <Zap className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold saintvision-gradient-text">
+                    Dual AI Workspace
+                  </h1>
+                  <p className="text-white/70 text-sm">
+                    GPT-4o + Azure • HACP™ Technology
+                  </p>
+                </div>
               </div>
 
-              <div className="space-y-4">
-                <Input
-                  placeholder="Note title..."
-                  value={newNote.title}
-                  onChange={e =>
-                    setNewNote({ ...newNote, title: e.target.value })
-                  }
-                  className="bg-white/5 border-white/20"
-                />
+              <div className="flex items-center space-x-2">
+                <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
+                  Both AI Active
+                </Badge>
+                <Button
+                  onClick={() => setIsCreating(true)}
+                  size="sm"
+                  className="bg-gold-500 hover:bg-gold-600 text-charcoal-900"
+                >
+                  <Plus className="w-4 h-4 mr-1" />
+                  Note
+                </Button>
+              </div>
+            </div>
+          </div>
 
-                <Textarea
-                  placeholder="What's on your mind?"
-                  value={newNote.content}
-                  onChange={e =>
-                    setNewNote({ ...newNote, content: e.target.value })
-                  }
-                  className="bg-white/5 border-white/20 min-h-[100px]"
-                />
+          {/* Dual AI Chat Interface */}
+          <div className="flex-1 overflow-hidden">
+            <DualAIChat />
+          </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm text-white/70">Color:</span>
+          {/* Quick Note Creation Overlay */}
+          {isCreating && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
+              <div className="bg-charcoal-800 p-6 rounded-lg border border-white/20 w-96 max-w-[90vw]">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold">Quick Note</h3>
+                  <Button
+                    onClick={() => setIsCreating(false)}
+                    size="sm"
+                    variant="ghost"
+                    className="text-white/50 hover:text-white"
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+
+                <div className="space-y-4">
+                  <Input
+                    placeholder="Note title..."
+                    value={newNote.title}
+                    onChange={e =>
+                      setNewNote({ ...newNote, title: e.target.value })
+                    }
+                    className="bg-white/5 border-white/20"
+                  />
+
+                  <Textarea
+                    placeholder="What's on your mind?"
+                    value={newNote.content}
+                    onChange={e =>
+                      setNewNote({ ...newNote, content: e.target.value })
+                    }
+                    className="bg-white/5 border-white/20 min-h-[100px]"
+                  />
+
+                  <div className="flex items-center justify-between">
                     <div className="flex space-x-2">
-                      {colors.map(color => (
+                      {colors.slice(0, 4).map(color => (
                         <button
                           key={color.name}
                           onClick={() =>
                             setNewNote({ ...newNote, color: color.name })
                           }
-                          className={`w-6 h-6 rounded-full border-2 ${
-                            color.bg
-                          } ${
+                          className={`w-6 h-6 rounded-full border-2 ${color.bg} ${
                             newNote.color === color.name
                               ? "border-white"
                               : "border-white/30"
@@ -307,164 +375,29 @@ export default function StickyNotes() {
                         />
                       ))}
                     </div>
-                  </div>
 
-                  <div className="flex space-x-2">
-                    <Input
-                      placeholder="Tags (comma separated)"
-                      value={newNote.tags}
-                      onChange={e =>
-                        setNewNote({ ...newNote, tags: e.target.value })
-                      }
-                      className="bg-white/5 border-white/20 w-48"
-                    />
-                    <Button
-                      onClick={handleCreateNote}
-                      className="bg-blue-500 hover:bg-blue-600"
-                    >
-                      <Save className="w-4 h-4 mr-2" />
-                      Save
-                    </Button>
+                    <div className="flex space-x-2">
+                      <Button
+                        onClick={() => setIsCreating(false)}
+                        variant="ghost"
+                        size="sm"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        onClick={handleCreateNote}
+                        size="sm"
+                        className="bg-gold-500 hover:bg-gold-600 text-charcoal-900"
+                      >
+                        <Save className="w-4 h-4 mr-1" />
+                        Save
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           )}
-
-          {/* Notes Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {filteredNotes.map(note => {
-              const colorClasses = getColorClasses(note.color);
-              return (
-                <div
-                  key={note.id}
-                  className={`p-4 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200 ${colorClasses.bg} ${colorClasses.border} border relative group`}
-                >
-                  {/* Note Header */}
-                  <div className="flex items-start justify-between mb-3">
-                    <h3 className={`font-semibold ${colorClasses.text} pr-2`}>
-                      {note.title}
-                    </h3>
-                    <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button
-                        onClick={() => togglePin(note.id)}
-                        size="sm"
-                        variant="ghost"
-                        className="h-6 w-6 p-0"
-                      >
-                        {note.pinned ? (
-                          <PinOff className="w-3 h-3 text-red-600" />
-                        ) : (
-                          <Pin className="w-3 h-3" />
-                        )}
-                      </Button>
-                      <Button
-                        onClick={() => toggleFavorite(note.id)}
-                        size="sm"
-                        variant="ghost"
-                        className="h-6 w-6 p-0"
-                      >
-                        <Star
-                          className={`w-3 h-3 ${
-                            note.favorite
-                              ? "text-yellow-600 fill-yellow-600"
-                              : ""
-                          }`}
-                        />
-                      </Button>
-                      <Button
-                        onClick={() => deleteNote(note.id)}
-                        size="sm"
-                        variant="ghost"
-                        className="h-6 w-6 p-0"
-                      >
-                        <Trash2 className="w-3 h-3 text-red-600" />
-                      </Button>
-                    </div>
-                  </div>
-
-                  {/* Note Content */}
-                  <p
-                    className={`${colorClasses.text} text-sm mb-3 line-clamp-4`}
-                  >
-                    {note.content}
-                  </p>
-
-                  {/* Tags */}
-                  {note.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {note.tags.map(tag => (
-                        <Badge
-                          key={tag}
-                          variant="secondary"
-                          className="text-xs bg-black/20 text-black/80"
-                        >
-                          #{tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Note Footer */}
-                  <div
-                    className={`flex items-center justify-between text-xs ${colorClasses.text} opacity-70`}
-                  >
-                    <div className="flex items-center space-x-2">
-                      {note.pinned && <Pin className="w-3 h-3" />}
-                      {note.favorite && (
-                        <Star className="w-3 h-3 fill-current" />
-                      )}
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Clock className="w-3 h-3" />
-                      <span>{note.updatedAt.toLocaleDateString()}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Empty State */}
-          {filteredNotes.length === 0 && (
-            <div className="text-center py-12">
-              <StickyNote className="w-16 h-16 text-white/20 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-white/70 mb-2">
-                {searchTerm || selectedColor !== "all"
-                  ? "No notes found"
-                  : "No notes yet"}
-              </h3>
-              <p className="text-white/50 mb-4">
-                {searchTerm || selectedColor !== "all"
-                  ? "Try adjusting your search or filter"
-                  : "Create your first sticky note to get started"}
-              </p>
-              {!searchTerm && selectedColor === "all" && (
-                <Button
-                  onClick={() => setIsCreating(true)}
-                  className="bg-gold-500 hover:bg-gold-600 text-charcoal-900"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Create Note
-                </Button>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Stats Bar */}
-        <div className="bg-charcoal-800 border-t border-white/10 px-6 py-3">
-          <div className="flex items-center justify-between text-sm text-white/60">
-            <div className="flex items-center space-x-4">
-              <span>{notes.length} total notes</span>
-              <span>{notes.filter(n => n.pinned).length} pinned</span>
-              <span>{notes.filter(n => n.favorite).length} favorites</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Sparkles className="w-4 h-4 text-gold-300" />
-              <span className="text-gold-300">Auto-saved</span>
-            </div>
-          </div>
         </div>
       </div>
     </AppLayout>
