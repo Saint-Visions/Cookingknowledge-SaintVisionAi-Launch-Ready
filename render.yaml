@@ -1,8 +1,8 @@
 services:
-  # Web Service - SPA Frontend
+  # Static Site - SPA Frontend
   - type: web
     name: saintvision-app
-    env: node
+    env: static
     plan: free
     region: oregon
     branch: main
@@ -15,36 +15,13 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: VITE_APP_ENV
-        value: production
     headers:
       - path: /*
         name: X-Robots-Tag
         value: index
-
-  # API Service (Optional - if you have backend APIs)
-  - type: web
-    name: saintvision-api
-    env: node
-    plan: free
-    region: oregon
-    branch: main
-    buildCommand: npm install
-    startCommand: npm run server
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: PORT
-        value: 10000
-    # Add your environment variables from .env here
-    # - key: DATABASE_URL
-    #   fromDatabase:
-    #     name: saintvision-db
-    #     property: connectionString
-    # - key: OPENAI_API_KEY
-    #   sync: false  # This will be a secret env var you set manually
-    # - key: AZURE_OPENAI_API_KEY
-    #   sync: false
+      - path: /*
+        name: Cache-Control
+        value: max-age=3600
 
 # Optional: If you need a database
 # databases:
