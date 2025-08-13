@@ -38,8 +38,15 @@ export default function SignIn() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle Supabase auth logic here
-    console.log("Auth submission:", { isSignUp, formData });
+
+    // Demo bypass - redirect to dashboard for any credentials
+    console.log("Demo mode: Redirecting to dashboard");
+    window.location.href = "/dashboard";
+  };
+
+  const handleDemoAccess = () => {
+    // Quick demo access
+    window.location.href = "/dashboard";
   };
 
   return (
