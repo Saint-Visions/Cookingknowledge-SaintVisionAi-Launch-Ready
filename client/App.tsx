@@ -61,7 +61,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/__routes" element={<RouteScanner />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/workstation" element={<Workstation />} />
+          <Route path="/workstation" element={<WorkstationSimple />} />
           <Route path="/version-test" element={<div style={{padding: '50px', color: 'white', background: 'red', fontSize: '24px'}}>VERSION TEST - NEW DEPLOYMENT</div>} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/signin" element={<SignIn />} />
