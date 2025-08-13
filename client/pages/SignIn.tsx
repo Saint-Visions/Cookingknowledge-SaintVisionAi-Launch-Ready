@@ -333,6 +333,18 @@ export default function SignIn() {
                   {isSignUp ? "Create Account" : "Sign In"}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
+
+                {/* Demo Access Button */}
+                <Button
+                  type="button"
+                  onClick={handleDemoAccess}
+                  variant="outline"
+                  className="w-full border-blue-500/50 text-blue-300 hover:bg-blue-500/10 h-12 text-lg font-semibold"
+                >
+                  <Star className="mr-2 w-5 h-5" />
+                  Demo Access - Explore All Features
+                  <Sparkles className="ml-2 w-4 h-4" />
+                </Button>
               </form>
 
               {/* Switch Mode */}
