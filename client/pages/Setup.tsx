@@ -179,31 +179,39 @@ export default function Setup() {
         }}
       ></div>
 
-      {/* Mobile-First Navigation */}
-      <nav className="relative z-50 p-4 md:p-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-gold-400 to-gold-600 rounded-lg flex items-center justify-center saintvision-glow">
+      {/* Header with Logo and Setup Wizard Title */}
+      <h1 className="relative z-50 text-xl font-bold saintvision-gradient-text p-6">
+        Setup Wizard
+      </h1>
+
+      <div className="relative z-50">
+        <div className="flex gap-5 px-6 max-md:flex-col max-md:gap-0">
+          <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
+            <div className="flex items-center bg-gradient-to-br from-gold-400 to-gold-600 rounded-lg saintvision-glow w-12 h-12 justify-center">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1fad4f7c944249c3a8a02d8e8ae77b26?format=webp&width=800"
                 alt="SaintVisionAI Logo"
-                className="w-5 h-5 md:w-6 md:h-6 object-contain"
+                className="w-6 h-6 object-contain"
               />
             </div>
-            <div>
-              <h1 className="text-lg md:text-xl font-bold saintvision-gradient-text">
-                Setup Wizard
-              </h1>
-              <p className="text-xs text-gold-300 -mt-1">
-                SaintSal™ Onboarding
-              </p>
-            </div>
           </div>
-          <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/30 text-xs md:text-sm">
-            Step {currentStep} of {totalSteps}
-          </Badge>
+          <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
+            <nav className="relative z-50 p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="ml-3" />
+                </div>
+                <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/30 px-3 py-1 text-sm font-semibold">
+                  <span>Step </span>
+                  <span>{currentStep}</span>
+                  <span> of </span>
+                  <span>{totalSteps}</span>
+                </Badge>
+              </div>
+            </nav>
+          </div>
         </div>
-      </nav>
+      </div>
 
       <div className="relative z-40 px-4 md:px-6 pb-6">
         <div className="max-w-4xl mx-auto">
