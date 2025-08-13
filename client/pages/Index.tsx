@@ -69,12 +69,12 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-charcoal-900 text-white relative">
-      {/* Hero Background Image - Parallax Layer 2 */}
+      {/* Hero Background Image - Futuristic Cityscape */}
       <div
         className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(135deg, rgba(16, 22, 28, 0.6) 0%, rgba(16, 22, 28, 0.5) 100%), 
-                                                      url('https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F317f7c64793d47ab90d506bd066bedbb?format=webp&width=800')`,
+          backgroundImage: `linear-gradient(135deg, rgba(16, 22, 28, 0.3) 0%, rgba(16, 22, 28, 0.4) 100%),
+                                                      url('https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2F5defcc15941c4d1480256a5d959e3013?format=webp&width=1200')`,
           backgroundAttachment: "fixed",
           zIndex: 1,
         }}
