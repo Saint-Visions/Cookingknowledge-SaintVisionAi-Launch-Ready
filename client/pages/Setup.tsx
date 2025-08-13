@@ -187,13 +187,16 @@ export default function Setup() {
       <div className="relative z-50">
         <div className="flex gap-5 px-6 max-md:flex-col max-md:gap-0">
           <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
-            <div className="flex items-center bg-gradient-to-br from-gold-400 to-gold-600 rounded-lg saintvision-glow w-12 h-12 justify-center">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1fad4f7c944249c3a8a02d8e8ae77b26?format=webp&width=800"
-                alt="SaintVisionAI Logo"
-                className="w-6 h-6 object-contain"
-              />
-            </div>
+            <div
+              className="flex items-center rounded-lg w-12 h-12 justify-center"
+              style={{
+                backgroundImage: "url(https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2Fd7b3731fc75749a2b0e0f22f6b2cdadc)",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                boxShadow: "0 0 30px 0"
+              }}
+            />
           </div>
           <div className="flex flex-col ml-5 w-6/12 max-md:ml-0 max-md:w-full">
             <nav className="relative z-50 p-6">
