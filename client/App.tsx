@@ -60,8 +60,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/__routes" element={<RouteScanner />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/workstation" element={<Workstation />} />
-          <Route path="/test" element={<div style={{padding: '50px', color: 'white', background: 'black'}}>Test Route Works!</div>} />
+          <Route path="/workstation" element={<div style={{padding: '50px', color: 'white', background: 'black'}}>Direct Workstation Test</div>} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
