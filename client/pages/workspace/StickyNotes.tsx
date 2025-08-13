@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { AppLayout } from "@/components/AppLayout";
+import DualAIChat from "@/components/DualAIChat";
 import {
   StickyNote,
   Plus,
@@ -23,6 +24,9 @@ import {
   Clock,
   User,
   Sparkles,
+  Brain,
+  MessageSquare,
+  Zap,
 } from "lucide-react";
 
 interface Note {
