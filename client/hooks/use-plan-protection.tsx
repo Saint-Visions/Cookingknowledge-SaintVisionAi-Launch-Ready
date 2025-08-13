@@ -42,49 +42,11 @@ export function usePlanProtection(
   const hasAccess = true; // Demo mode: always allow access
 
   useEffect(() => {
-    async function checkUserPlan() {
-      try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-
-        if (!user) {
-          setPlan("free");
-          setIsLoading(false);
-          return;
-        }
-
-        // Check subscription status
-        const { data: subscription } = await supabase
-          .from("subscriptions")
-          .select("plan_role, status")
-          .eq("user_id", user.id)
-          .eq("status", "active")
-          .single();
-
-        const userPlan =
-          subscription?.plan_role || user.user_metadata?.plan || "free";
-        setPlan(userPlan as UserPlan);
-
-        // Redirect if user doesn't have access
-        if (!options.requiredPlan.includes(userPlan as UserPlan)) {
-          console.log(
-            `🔒 Access denied: User has '${userPlan}' plan, needs one of: [${options.requiredPlan.join(
-              ", ",
-            )}]`,
-          );
-          navigate(options.redirectTo || "/upgrade");
-        }
-      } catch (error) {
-        console.error("Error checking user plan:", error);
-        setPlan("free");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    checkUserPlan();
-  }, [options.requiredPlan, options.redirectTo, navigate]);
+    // Demo mode: Skip all authentication and give enterprise access
+    console.log("Demo mode: Enterprise plan access granted");
+    setPlan("enterprise");
+    setIsLoading(false);
+  }, []);
 
   return { plan, isLoading, hasAccess };
 }
