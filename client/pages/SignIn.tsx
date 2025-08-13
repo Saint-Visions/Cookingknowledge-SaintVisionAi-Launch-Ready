@@ -50,7 +50,12 @@ export default function SignIn() {
   };
 
   const handleDemoAccess = () => {
-    // Quick demo access
+    // Quick demo access with auth state
+    localStorage.setItem('demo_authenticated', 'true');
+    localStorage.setItem('user_plan', 'enterprise');
+    localStorage.setItem('user_email', 'demo@saintvision.ai');
+
+    console.log("Demo access granted - redirecting to dashboard");
     window.location.href = "/dashboard";
   };
 
