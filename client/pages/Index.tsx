@@ -74,7 +74,7 @@ export default function Index() {
         className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `linear-gradient(135deg, rgba(16, 22, 28, 0.3) 0%, rgba(16, 22, 28, 0.4) 100%),
-                                                      url('https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2F5defcc15941c4d1480256a5d959e3013?format=webp&width=1200')`,
+                                                      url('https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2F2a53904dff094cec9e6efcd991b2e12f?format=webp&width=1600')`,
           backgroundAttachment: "fixed",
           zIndex: 1,
         }}
