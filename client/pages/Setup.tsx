@@ -246,17 +246,13 @@ export default function Setup() {
               {/* Step 1: Welcome */}
               {currentStep === 1 && (
                 <div className="text-center">
-                  <div
-                    className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center"
-                    style={{
-                      backgroundImage: "url(https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2Fd7b3731fc75749a2b0e0f22f6b2cdadc)",
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
-                      textShadow: "1px 1px 3px",
-                      boxShadow: "0 0 30px 0"
-                    }}
-                  />
+                  <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center saintvision-glow">
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2Fd7b3731fc75749a2b0e0f22f6b2cdadc"
+                      alt="SaintVisionAI Logo"
+                      className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                    />
+                  </div>
                   <h3 className="text-2xl md:text-3xl font-bold mb-4">
                     Welcome to{" "}
                     <span className="saintvision-gradient-text">SaintSal™</span>
