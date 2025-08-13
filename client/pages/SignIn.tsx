@@ -41,6 +41,11 @@ export default function SignIn() {
 
     // Demo bypass - redirect to dashboard for any credentials
     console.log("Demo mode: Redirecting to dashboard");
+
+    // Set a simple auth flag in localStorage for demo
+    localStorage.setItem('demo_authenticated', 'true');
+    localStorage.setItem('user_plan', 'enterprise');
+
     window.location.href = "/dashboard";
   };
 
