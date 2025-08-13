@@ -95,37 +95,10 @@ export function useUserPlan(): UserPlanData {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    async function getUserPlan() {
-      try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-
-        if (!user) {
-          setPlan("free");
-          setIsLoading(false);
-          return;
-        }
-
-        const { data: subscription } = await supabase
-          .from("subscriptions")
-          .select("plan_role, status")
-          .eq("user_id", user.id)
-          .eq("status", "active")
-          .single();
-
-        const userPlan =
-          subscription?.plan_role || user.user_metadata?.plan || "free";
-        setPlan(userPlan as UserPlan);
-      } catch (error) {
-        console.error("Error getting user plan:", error);
-        setPlan("free");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    getUserPlan();
+    // Demo mode: Skip authentication checks and set enterprise plan
+    console.log("Demo mode: User has enterprise access to all features");
+    setPlan("enterprise");
+    setIsLoading(false);
   }, []);
 
   return { plan, isLoading, hasAccess: true };
