@@ -77,6 +77,7 @@ const App = () => (
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="/setup" element={<Setup />} />
           <Route path="/referral/invite" element={<ReferralInvite />} />
+          <Route path="/workspace" element={<Navigate to="/workspace/notes" replace />} />
           <Route path="/workspace/:slug" element={<Workspace />} />
           <Route path="/workspace/notes" element={<StickyNotes />} />
           <Route path="/workspace/image-gen" element={<ImageGenerator />} />
