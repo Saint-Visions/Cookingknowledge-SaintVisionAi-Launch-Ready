@@ -199,37 +199,32 @@ export default function StickyNotes() {
   return (
     <AppLayout>
       <div className="flex h-full bg-charcoal-900 text-white overflow-hidden">
-        {/* Sidebar - Quick Notes Access */}
+        {/* Sidebar - SaintVisionAI Style */}
         <div className="w-64 bg-charcoal-800 border-r border-white/10 flex flex-col">
-          {/* Sidebar Header */}
+          {/* Sidebar Header - Exactly like screenshot */}
           <div className="p-4 border-b border-white/10">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gold-500/20 rounded-lg flex items-center justify-center">
-                <Brain className="w-4 h-4 text-gold-300" />
-              </div>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2F03050cb7e1e04ae4900626be9878764d"
+                alt="SaintVisionAI Logo"
+                className="w-8 h-8 object-contain"
+              />
               <div>
-                <h3 className="font-semibold text-white">AI Workspace</h3>
-                <p className="text-xs text-white/60">Dual Intelligence</p>
+                <h3 className="font-semibold text-white">SaintVisionAI-SaintGPT</h3>
+                <p className="text-xs text-white/60">Cookin Knowledge</p>
               </div>
             </div>
           </div>
 
-          {/* Quick Actions */}
-          <div className="p-4 space-y-2">
+          {/* New Chat Button - Like screenshot */}
+          <div className="p-3">
             <Button
-              onClick={() => setIsCreating(true)}
+              onClick={() => window.location.reload()}
               variant="ghost"
-              className="w-full justify-start text-white/70 hover:text-white hover:bg-white/10"
+              className="w-full justify-start text-white/70 hover:text-white hover:bg-white/10 border border-white/20 rounded-lg h-10"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Quick Note
-            </Button>
-            <Button
-              variant="ghost"
-              className="w-full justify-start text-white/70 hover:text-white hover:bg-white/10"
-            >
-              <MessageSquare className="w-4 h-4 mr-2" />
-              Chat History
+              New Chat
             </Button>
           </div>
 
