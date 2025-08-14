@@ -28,6 +28,7 @@ import ReferralInvite from "./pages/ReferralInvite";
 import Workspace from "./pages/Workspace";
 import Workstation from "./pages/Workstation";
 import DirectLogin from "./pages/DirectLogin";
+import VoiceDemo from "./pages/VoiceDemo";
 import StickyNotes from "./pages/workspace/StickyNotes";
 import ImageGenerator from "./pages/workspace/ImageGenerator";
 import Help from "./pages/Help";
