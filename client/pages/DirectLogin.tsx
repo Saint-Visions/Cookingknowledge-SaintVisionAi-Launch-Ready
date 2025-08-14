@@ -104,13 +104,22 @@ export default function DirectLogin() {
           <div className="glass-morphism p-6 rounded-lg inline-block">
             <h3 className="text-xl font-semibold mb-2">Authentication Status</h3>
             <p className="text-white/60 mb-4">All links above will automatically authenticate you as an enterprise user</p>
-            <Button 
-              onClick={() => handleDirectAccess("/signin")}
-              variant="outline"
-              className="border-white/30 text-white hover:bg-white/10"
-            >
-              Go to Normal Sign In
-            </Button>
+            <div className="flex space-x-4 justify-center">
+              <Button
+                onClick={() => handleDirectAccess("/signin")}
+                variant="outline"
+                className="border-white/30 text-white hover:bg-white/10"
+              >
+                Go to Normal Sign In
+              </Button>
+              <Button
+                onClick={() => handleDirectAccess("/test-auth")}
+                variant="outline"
+                className="border-blue-500/30 text-blue-300 hover:bg-blue-500/10"
+              >
+                Test Authentication
+              </Button>
+            </div>
           </div>
         </div>
       </div>
