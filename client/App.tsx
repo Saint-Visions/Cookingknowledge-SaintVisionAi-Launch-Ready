@@ -83,6 +83,7 @@ const App = () => (
           <Route path="/direct" element={<DirectLogin />} />
           <Route path="/voice-demo" element={<VoiceDemo />} />
           <Route path="/test-auth" element={<TestAuth />} />
+          <Route path="/working-signin" element={<WorkingSignIn />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
