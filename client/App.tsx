@@ -96,12 +96,8 @@ const App = () => (
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="/setup" element={<Setup />} />
           <Route path="/referral/invite" element={<ReferralInvite />} />
-<<<<<<< HEAD
           <Route path="/workspace" element={<Navigate to="/workspace/notes" replace />} />
           <Route path="/workspace/:slug" element={<Workspace />} />
-=======
-          <Route path="/workspace" element={<Workspace />} />
->>>>>>> origin/main
           <Route path="/workspace/notes" element={<StickyNotes />} />
           <Route path="/workspace/image-gen" element={<ImageGenerator />} />
           <Route path="/help" element={<Help />} />
