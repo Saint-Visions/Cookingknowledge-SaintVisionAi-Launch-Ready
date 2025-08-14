@@ -138,6 +138,19 @@ export default function Dashboard() {
       <div className="flex-1 flex overflow-hidden">
         <DualAIChat />
       </div>
+
+      {/* Floating Voice Interface */}
+      {showVoiceInterface && (
+        <VoiceInterface
+          mode="floating"
+          context="realtime"
+          onTranscript={handleVoiceTranscript}
+          onStatusChange={handleVoiceStatusChange}
+          showProviderInfo={true}
+          showTranscript={true}
+          placeholder="Speak to your AI companion... Voice will be transcribed here."
+        />
+      )}
     </AppLayout>
   );
 }
