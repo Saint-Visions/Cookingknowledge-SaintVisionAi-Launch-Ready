@@ -646,6 +646,23 @@ ${
             </Button>
           </div>
 
+          {/* Voice Interface */}
+          {agent.features.includes("voice_enabled") && showVoiceInterface && (
+            <div className="mt-4">
+              <VoiceInterface
+                mode="full"
+                context="realtime"
+                onTranscript={handleVoiceTranscript}
+                onStatusChange={handleVoiceStatusChange}
+                className="border-white/10"
+                showProviderInfo={true}
+                showTranscript={true}
+                maxHeight="200px"
+                placeholder={`Speak to ${agent.name}... Your voice will be transcribed here.`}
+              />
+            </div>
+          )}
+
           {/* Agent Features Display */}
           <div className="flex items-center justify-between mt-3 text-xs text-white/50">
             <div className="flex items-center space-x-4">
