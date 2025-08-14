@@ -30,6 +30,7 @@ import Workstation from "./pages/Workstation";
 import DirectLogin from "./pages/DirectLogin";
 import VoiceDemo from "./pages/VoiceDemo";
 import TestAuth from "./pages/TestAuth";
+import WorkingSignIn from "./pages/WorkingSignIn";
 import StickyNotes from "./pages/workspace/StickyNotes";
 import ImageGenerator from "./pages/workspace/ImageGenerator";
 import Help from "./pages/Help";
