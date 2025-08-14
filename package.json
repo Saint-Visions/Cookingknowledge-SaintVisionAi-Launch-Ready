@@ -8,7 +8,10 @@
     "build:client": "vite build",
     "preview": "vite preview",
     "start": "serve dist/spa -s -l 8080",
-    "builder:sync": "builder sync --model page --apiKey=065997bd13e4442e888a06852fcd61ba"
+    "serve": "serve dist/spa -s",
+    "builder:sync": "builder sync --model page --apiKey=065997bd13e4442e888a06852fcd61ba",
+    "render:build": "yarn install --frozen-lockfile && yarn build",
+    "render:start": "serve dist/spa -s -p $PORT"
   },
   "dependencies": {
     "@builder.io/react": "^8.2.6",
