@@ -74,6 +74,7 @@ export default function Console() {
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isVoiceActive, setIsVoiceActive] = useState(false);
+  const [showVoiceInterface, setShowVoiceInterface] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [escalationStatus, setEscalationStatus] = useState<string | null>(null);
 
