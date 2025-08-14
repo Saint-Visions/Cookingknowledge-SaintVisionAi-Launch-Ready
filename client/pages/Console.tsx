@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import VoiceInterface from "@/components/VoiceInterface";
 import {
   Bot,
   Send,
@@ -496,7 +497,7 @@ ${
         </div>
       </header>
 
-      {/* HACP™ Patent Notice */}
+      {/* HACP�� Patent Notice */}
       {consoleMode.mode === "client" && (
         <div
           className={`${brandColors.bgLight} border-b ${brandColors.borderLight} px-4 py-2`}
