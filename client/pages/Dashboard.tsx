@@ -112,6 +112,18 @@ export default function Dashboard() {
               War Room Active
             </Badge>
             <Button
+              onClick={() => setShowVoiceInterface(!showVoiceInterface)}
+              variant={showVoiceInterface ? "default" : "ghost"}
+              size="sm"
+              className={showVoiceInterface
+                ? "bg-blue-500 text-white hover:bg-blue-600"
+                : `text-white/70 ${brandColors.hover}`
+              }
+              title="Toggle Voice Interface"
+            >
+              <Mic className="w-4 h-4" />
+            </Button>
+            <Button
               variant="ghost"
               size="sm"
               className={`text-white/70 ${brandColors.hover}`}
