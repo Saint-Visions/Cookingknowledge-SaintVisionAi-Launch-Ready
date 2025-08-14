@@ -252,6 +252,7 @@ export default function SignIn() {
               {/* Social Auth */}
               <div className="space-y-3 mb-6">
                 <Button
+                  onClick={handleGoogleAuth}
                   variant="outline"
                   className="w-full border-white/20 text-white hover:bg-white/10 h-12"
                 >
@@ -259,6 +260,7 @@ export default function SignIn() {
                   Continue with Google
                 </Button>
                 <Button
+                  onClick={handleGithubAuth}
                   variant="outline"
                   className="w-full border-white/20 text-white hover:bg-white/10 h-12"
                 >
