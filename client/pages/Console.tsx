@@ -377,11 +377,14 @@ ${
   // Handle voice transcript integration
   const handleVoiceTranscript = (transcript: string, confidence: number) => {
     if (transcript.trim()) {
-      // Auto-send voice transcript as message
+      // Set the transcript as input message
       setInputMessage(transcript.trim());
       // Optional: Auto-send if confidence is high enough
       if (confidence > 0.8) {
-        handleSendMessage(transcript.trim());
+        // Auto-send the message
+        setTimeout(() => {
+          sendMessage();
+        }, 500);
       }
     }
   };
