@@ -371,7 +371,25 @@ ${
     }
 
     setIsVoiceActive(!isVoiceActive);
-    // Implement voice functionality with Twilio integration
+    setShowVoiceInterface(!showVoiceInterface);
+  };
+
+  // Handle voice transcript integration
+  const handleVoiceTranscript = (transcript: string, confidence: number) => {
+    if (transcript.trim()) {
+      // Auto-send voice transcript as message
+      setInputMessage(transcript.trim());
+      // Optional: Auto-send if confidence is high enough
+      if (confidence > 0.8) {
+        handleSendMessage(transcript.trim());
+      }
+    }
+  };
+
+  // Handle voice status changes
+  const handleVoiceStatusChange = (status: string) => {
+    console.log('Voice status:', status);
+    // You can update UI based on voice status
   };
 
   const scrollToBottom = () => {
