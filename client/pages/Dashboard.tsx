@@ -31,6 +31,7 @@ import {
 
 export default function Dashboard() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showVoiceInterface, setShowVoiceInterface] = useState(false);
   const { userPlan, isLoading } = useUserPlan();
   const navigate = useNavigate();
 
