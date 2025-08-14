@@ -397,7 +397,8 @@ export default function SignIn() {
                   type="button"
                   onClick={handleDemoAccess}
                   variant="outline"
-                  className="w-full border-blue-500/50 text-blue-300 hover:bg-blue-500/10 h-12 text-lg font-semibold"
+                  data-demo-access="true"
+                  className="w-full border-blue-500/50 text-blue-300 hover:bg-blue-500/10 h-12 text-lg font-semibold transition-all duration-200"
                 >
                   <Star className="mr-2 w-5 h-5" />
                   Demo Access - Explore All Features
