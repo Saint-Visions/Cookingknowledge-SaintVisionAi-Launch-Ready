@@ -42,6 +42,17 @@ export default function Dashboard() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Handle voice transcript from voice interface
+  const handleVoiceTranscript = (transcript: string, confidence: number) => {
+    console.log('Voice transcript received:', transcript, 'Confidence:', confidence);
+    // You can integrate this with the DualAIChat component
+    // For now, we'll just log it
+  };
+
+  const handleVoiceStatusChange = (status: string) => {
+    console.log('Voice status changed:', status);
+  };
+
   // Determine brand colors based on user plan
   const getBrandColors = () => {
     if (userPlan && ["enterprise", "white_label", "crm"].includes(userPlan)) {
