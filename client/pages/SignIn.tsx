@@ -40,23 +40,69 @@ export default function SignIn() {
     e.preventDefault();
 
     // Demo bypass - redirect to dashboard for any credentials
-    console.log("Demo mode: Redirecting to dashboard");
+    console.log("Demo mode: Form submitted, redirecting to dashboard");
 
-    // Set a simple auth flag in localStorage for demo
+    // Set comprehensive auth state for demo
     localStorage.setItem('demo_authenticated', 'true');
     localStorage.setItem('user_plan', 'enterprise');
+    localStorage.setItem('user_email', formData.email || 'demo@saintvision.ai');
+    localStorage.setItem('user_name', `${formData.firstName || 'Demo'} ${formData.lastName || 'User'}`);
+    localStorage.setItem('auth_method', 'form_demo');
 
-    window.location.href = "/dashboard";
+    // Add a small delay to ensure localStorage is set
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 100);
   };
 
   const handleDemoAccess = () => {
-    // Quick demo access with auth state
+    console.log("Demo access button clicked");
+
+    // Set comprehensive auth state for demo
     localStorage.setItem('demo_authenticated', 'true');
     localStorage.setItem('user_plan', 'enterprise');
     localStorage.setItem('user_email', 'demo@saintvision.ai');
+    localStorage.setItem('user_name', 'Demo User');
+    localStorage.setItem('auth_method', 'demo_access');
+
+    // Visual feedback
+    const button = document.querySelector('[data-demo-access]') as HTMLButtonElement;
+    if (button) {
+      button.innerHTML = '<span>🚀 Accessing Dashboard...</span>';
+      button.disabled = true;
+    }
 
     console.log("Demo access granted - redirecting to dashboard");
-    window.location.href = "/dashboard";
+
+    // Add a small delay to ensure localStorage is set
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 500);
+  };
+
+  // Handle OAuth buttons
+  const handleGoogleAuth = () => {
+    console.log("Google auth clicked - using demo mode");
+    localStorage.setItem('demo_authenticated', 'true');
+    localStorage.setItem('user_plan', 'enterprise');
+    localStorage.setItem('user_email', 'google@saintvision.ai');
+    localStorage.setItem('user_name', 'Google Demo User');
+    localStorage.setItem('auth_method', 'google_demo');
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 100);
+  };
+
+  const handleGithubAuth = () => {
+    console.log("GitHub auth clicked - using demo mode");
+    localStorage.setItem('demo_authenticated', 'true');
+    localStorage.setItem('user_plan', 'enterprise');
+    localStorage.setItem('user_email', 'github@saintvision.ai');
+    localStorage.setItem('user_name', 'GitHub Demo User');
+    localStorage.setItem('auth_method', 'github_demo');
+    setTimeout(() => {
+      window.location.href = "/dashboard";
+    }, 100);
   };
 
   return (
