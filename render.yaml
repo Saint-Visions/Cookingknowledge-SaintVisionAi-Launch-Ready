@@ -6,7 +6,7 @@ services:
     plan: free
     region: oregon
     branch: main
-    buildCommand: npm install && npm run build
+    buildCommand: yarn install --frozen-lockfile && yarn build
     staticPublishPath: ./dist/spa
     routes:
       - type: rewrite
@@ -15,6 +15,8 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: VITE_PUBLIC_BUILDER_KEY
+        value: 2c553a9d8cf24e6eae81a4a63962c5a4
     headers:
       - path: /*
         name: X-Robots-Tag
@@ -22,6 +24,9 @@ services:
       - path: /*
         name: Cache-Control
         value: max-age=3600
+      - path: /assets/*
+        name: Cache-Control
+        value: max-age=31536000
 
 # Optional: If you need a database
 # databases:
