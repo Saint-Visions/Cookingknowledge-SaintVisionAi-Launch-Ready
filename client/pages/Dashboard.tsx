@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { AppLayout } from "@/components/AppLayout";
 import DualAIChat from "@/components/DualAIChat";
+import VoiceInterface from "@/components/VoiceInterface";
 import { useUserPlan } from "@/hooks/use-plan-protection";
 import { useNavigate } from "react-router-dom";
 import {
