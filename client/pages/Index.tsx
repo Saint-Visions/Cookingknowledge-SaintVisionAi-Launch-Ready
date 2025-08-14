@@ -1,73 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { useUserPlan } from "@/hooks/use-plan-protection";
-import { supabase } from "@/lib/supabase";
-import { Footer } from "@/components/Footer";
-import {
-  ArrowRight,
-  Brain,
-  Shield,
-  Zap,
-  Crown,
-  MessageSquare,
-  Sparkles,
-  Users,
-  Globe,
-  Lock,
-} from "lucide-react";
+import React from "react";
 
 export default function Index() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { plan } = useUserPlan();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    setIsLoaded(true);
-
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    // Check if user is logged in
-    const checkAuth = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setIsLoggedIn(!!user);
-    };
-    checkAuth();
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Plan-based routing logic for CTA buttons
-  const handleDashboardClick = () => {
-    if (!isLoggedIn) {
-      navigate("/signin");
-    } else {
-      navigate("/dashboard");
-    }
-  };
-
-  const handleCRMToolsClick = () => {
-    if (!isLoggedIn) {
-      navigate("/signin");
-    } else if (
-      plan === "crm" ||
-      plan === "enterprise" ||
-      plan === "white_label"
-    ) {
-      navigate("/partnertech");
-    } else {
-      navigate("/upgrade");
-    }
-  };
-
   return (
+<<<<<<< HEAD
     <div className="min-h-screen bg-charcoal-900 text-white relative">
 
       {/* Navigation */}
@@ -227,6 +162,18 @@ export default function Index() {
       </div>
 
       <Footer />
+=======
+    <div style={{
+      backgroundColor: 'red',
+      color: 'white',
+      fontSize: '60px',
+      textAlign: 'center',
+      padding: '200px',
+      fontWeight: 'bold',
+      height: '100vh'
+    }}>
+      🚨 WORKING! BRAIN LOGO REMOVED! 🚨
+>>>>>>> origin/main
     </div>
   );
 }

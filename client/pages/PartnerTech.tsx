@@ -323,7 +323,10 @@ function PartnerTechContent() {
             <div className="flex items-center space-x-4">
               <Button
                 className="bg-gold-500 hover:bg-gold-600 text-charcoal-900 saintvision-glow"
-                onClick={() => window.open("/crm", "_blank")}
+                onClick={() => {
+                  console.log('🚀 Opening CRM War Room...');
+                  window.open("/workspace-warroom-enterprise", "_blank");
+                }}
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
                 Open CRM War Room
@@ -577,9 +580,16 @@ function PartnerTechContent() {
                 size="sm"
                 variant="outline"
                 className="border-green-500/50 text-green-300 hover:bg-green-500/10"
-                onClick={() =>
-                  handleCreateContact({ firstName: "New", lastName: "Lead" })
-                }
+                onClick={async () => {
+                  const firstName = prompt("Enter contact first name:");
+                  const lastName = prompt("Enter contact last name:");
+                  const email = prompt("Enter contact email:");
+                  if (firstName) {
+                    console.log('👤 Creating contact...', { firstName, lastName, email });
+                    await handleCreateContact({ firstName, lastName, email });
+                    alert("Contact creation initiated!");
+                  }
+                }}
               >
                 <Users className="w-3 h-3 mr-1" />
                 Add Contact

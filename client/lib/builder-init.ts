@@ -11,7 +11,7 @@ export const initializeBuilderComprehensive = () => {
   }
 
   const BUILDER_API_KEY =
-    import.meta.env.VITE_BUILDER_API_KEY || "065997bd13e4442e888a06852fcd61ba";
+    import.meta.env.VITE_BUILDER_API_KEY || "2c553a9d8cf24e6eae81a4a63962c5a4";
 
   try {
     // Initialize Builder

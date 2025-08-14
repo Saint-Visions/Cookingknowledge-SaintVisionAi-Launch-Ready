@@ -1,0 +1,595 @@
+// SaintVisionAI Workspace Styles
+// OpenAI-inspired clean design with SaintSal branding
+
+// SaintSal Brand Variables
+$saintvision-gold: #FFD700;
+$saintvision-charcoal: #10161C;
+$saintvision-gradient: linear-gradient(135deg, #ffd700 0%, #e6c200 100%);
+
+// Workspace-specific color palette
+$workspace-primary: $saintvision-gold;
+$workspace-secondary: #3B82F6;
+$workspace-success: #10B981;
+$workspace-warning: #F59E0B;
+$workspace-error: #EF4444;
+$workspace-neutral: #6B7280;
+
+// Layout constants
+$sidebar-width: 288px; // 18rem
+$header-height: 64px; // 4rem
+$workspace-padding: 24px; // 1.5rem
+
+// Breakpoints
+$mobile: 640px;
+$tablet: 768px;
+$desktop: 1024px;
+$large: 1280px;
+
+// Workspace Layout Classes
+.workspace-layout {
+  min-height: 100vh;
+  background: #ffffff;
+  
+  &__sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: $sidebar-width;
+    height: 100vh;
+    background: #f9fafb;
+    border-right: 1px solid #e5e7eb;
+    overflow-y: auto;
+    z-index: 50;
+    
+    // Mobile responsive
+    @media (max-width: $desktop) {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      
+      &--open {
+        transform: translateX(0);
+      }
+    }
+  }
+  
+  &__main {
+    margin-left: $sidebar-width;
+    min-height: 100vh;
+    
+    @media (max-width: $desktop) {
+      margin-left: 0;
+    }
+  }
+  
+  &__header {
+    position: sticky;
+    top: 0;
+    height: $header-height;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 $workspace-padding;
+    z-index: 30;
+  }
+  
+  &__content {
+    padding: $workspace-padding;
+    background: #f9fafb;
+    min-height: calc(100vh - #{$header-height});
+  }
+}
+
+// Workspace Card Components
+.workspace-card {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: rgba($workspace-primary, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  &--featured {
+    border-color: $workspace-primary;
+    
+    &:hover {
+      border-color: darken($workspace-primary, 10%);
+      box-shadow: 0 8px 25px -5px rgba($workspace-primary, 0.3);
+    }
+  }
+  
+  &__header {
+    padding: 24px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  
+  &__content {
+    padding: 24px;
+  }
+  
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 8px;
+  }
+  
+  &__description {
+    color: #6b7280;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
+
+// Workspace Stats Grid
+.workspace-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+  
+  &__item {
+    @extend .workspace-card;
+    
+    &__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      
+      &--blue {
+        background: #dbeafe;
+        color: #2563eb;
+      }
+      
+      &--green {
+        background: #d1fae5;
+        color: #059669;
+      }
+      
+      &--gold {
+        background: #fefce8;
+        color: #ca8a04;
+      }
+      
+      &--purple {
+        background: #f3e8ff;
+        color: #7c3aed;
+      }
+    }
+    
+    &__value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+    
+    &__label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+    
+    &__change {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+  }
+}
+
+// Workspace Navigation
+.workspace-nav {
+  padding: 16px;
+  
+  &__section {
+    margin-bottom: 32px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  &__title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    padding: 0 12px;
+  }
+  
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    color: #374151;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: #f3f4f6;
+      color: #111827;
+    }
+    
+    &--active {
+      background: #111827;
+      color: #ffffff;
+      
+      &:hover {
+        background: #374151;
+        color: #ffffff;
+      }
+    }
+    
+    &__icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+    
+    &__badge {
+      margin-left: auto;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      
+      &--warroom {
+        background: $workspace-primary;
+        color: #111827;
+      }
+      
+      &--pro {
+        background: #10b981;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+// Workspace Tabs
+.workspace-tabs {
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    background: #f9fafb;
+    padding: 4px;
+    border-radius: 8px;
+    margin-bottom: 32px;
+  }
+  
+  &__trigger {
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: #111827;
+      background: #ffffff;
+    }
+    
+    &--active {
+      color: #111827;
+      background: #ffffff;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// Workspace Buttons
+.workspace-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &--primary {
+    background: $workspace-primary;
+    color: #111827;
+    
+    &:hover {
+      background: darken($workspace-primary, 10%);
+    }
+  }
+  
+  &--secondary {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    
+    &:hover {
+      background: #e5e7eb;
+      color: #111827;
+    }
+  }
+  
+  &--success {
+    background: $workspace-success;
+    color: #ffffff;
+    
+    &:hover {
+      background: darken($workspace-success, 10%);
+    }
+  }
+  
+  &--outline {
+    background: transparent;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    
+    &:hover {
+      background: #f9fafb;
+      color: #111827;
+    }
+  }
+  
+  &--icon {
+    width: 64px;
+    height: 64px;
+    flex-direction: column;
+    padding: 16px;
+    
+    svg {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 4px;
+    }
+    
+    span {
+      font-size: 0.75rem;
+    }
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+    &:hover {
+      background: initial;
+      color: initial;
+    }
+  }
+}
+
+// Workspace Badges
+.workspace-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  
+  &--status {
+    &-connected {
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #a7f3d0;
+    }
+    
+    &-syncing {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border-color: #93c5fd;
+    }
+    
+    &-error {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #fca5a5;
+    }
+  }
+  
+  &--plan {
+    &-enterprise {
+      background: #f3e8ff;
+      color: #6b21a8;
+      border-color: #d8b4fe;
+    }
+    
+    &-pro {
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #a7f3d0;
+    }
+    
+    &-free {
+      background: #f3f4f6;
+      color: #374151;
+      border-color: #d1d5db;
+    }
+  }
+}
+
+// Workspace Loading States
+.workspace-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  
+  &__spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #f3f4f6;
+    border-top: 3px solid $workspace-primary;
+    border-radius: 50%;
+    animation: workspace-spin 1s linear infinite;
+  }
+  
+  &__skeleton {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: workspace-shimmer 1.5s infinite;
+    border-radius: 4px;
+    
+    &--line {
+      height: 16px;
+      margin-bottom: 8px;
+      
+      &:last-child {
+        margin-bottom: 0;
+        width: 60%;
+      }
+    }
+    
+    &--card {
+      height: 120px;
+      border-radius: 12px;
+    }
+  }
+}
+
+// Animations
+@keyframes workspace-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes workspace-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+// Workspace Responsive Design
+@media (max-width: $tablet) {
+  .workspace-stats {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .workspace-tabs__list {
+    grid-template-columns: 1fr;
+  }
+  
+  .workspace-card {
+    &__header,
+    &__content {
+      padding: 16px;
+    }
+  }
+}
+
+// Workspace Dark Mode (if needed)
+@media (prefers-color-scheme: dark) {
+  .workspace-layout {
+    background: #111827;
+    
+    &__sidebar {
+      background: #1f2937;
+      border-color: #374151;
+    }
+    
+    &__header {
+      background: #111827;
+      border-color: #374151;
+    }
+    
+    &__content {
+      background: #111827;
+    }
+  }
+  
+  .workspace-card {
+    background: #1f2937;
+    border-color: #374151;
+    
+    &__title {
+      color: #f9fafb;
+    }
+    
+    &__description {
+      color: #9ca3af;
+    }
+  }
+  
+  .workspace-nav {
+    &__item {
+      color: #d1d5db;
+      
+      &:hover {
+        background: #374151;
+        color: #f9fafb;
+      }
+      
+      &--active {
+        background: #f9fafb;
+        color: #111827;
+      }
+    }
+  }
+}
+
+// Utility Classes
+.workspace-grid {
+  display: grid;
+  gap: 24px;
+  
+  &--1 { grid-template-columns: 1fr; }
+  &--2 { grid-template-columns: repeat(2, 1fr); }
+  &--3 { grid-template-columns: repeat(3, 1fr); }
+  &--4 { grid-template-columns: repeat(4, 1fr); }
+  
+  @media (max-width: $tablet) {
+    &--2,
+    &--3,
+    &--4 {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+.workspace-space {
+  &-xs { margin-bottom: 8px; }
+  &-sm { margin-bottom: 16px; }
+  &-md { margin-bottom: 24px; }
+  &-lg { margin-bottom: 32px; }
+  &-xl { margin-bottom: 48px; }
+}
+
+// SaintSal Specific Branding
+.saintvision-workspace {
+  .workspace-card--featured {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(230, 194, 0, 0.05) 100%);
+    border-color: $saintvision-gold;
+  }
+  
+  .workspace-nav__item--active {
+    background: $saintvision-gold;
+    color: $saintvision-charcoal;
+  }
+  
+  .workspace-button--primary {
+    background: $saintvision-gradient;
+    color: $saintvision-charcoal;
+  }
+}

@@ -35,15 +35,30 @@ import ResearchRedirect from "./pages/ResearchRedirect";
 import Why from "./pages/Why";
 import SaintSalYou from "./pages/SaintSalYou";
 import Hacp from "./pages/Hacp";
+import SystemArchitecture from "./pages/SystemArchitecture";
+import BrandLanding from "./pages/BrandLanding";
+import BuilderPage from "./pages/BuilderPage";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import RouteScanner from "./routes/index";
 
 // SaintVision Homepage
 import SaintVisionHomepage from "./pages/SaintVisionHomepage";
+import SaintVisionGroup from "./pages/SaintVisionGroup";
 
 // Builder.io integration
 import BuilderPageHandler from "./pages/BuilderPageHandler";
 import { initializeBuilderComprehensive } from "./lib/builder-init";
+
+// New workspace and documentation pages
+import APIDocumentation from "./pages/APIDocumentation";
+import WhiteLabel from "./pages/WhiteLabel";
+import About from "./pages/About";
+import WorkspaceChat from "./pages/workspace-chat";
+import WorkspaceWarroomEnterprise from "./pages/workspace-warroom-enterprise";
+import SaintVisionInstitute from "./pages/SaintVisionInstitute";
+import WorkspaceContent from "./pages/WorkspaceContent";
+import TestButtons from "./pages/TestButtons";
 
 // Initialize Builder.io with comprehensive settings
 initializeBuilderComprehensive();
@@ -81,8 +96,12 @@ const App = () => (
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="/setup" element={<Setup />} />
           <Route path="/referral/invite" element={<ReferralInvite />} />
+<<<<<<< HEAD
           <Route path="/workspace" element={<Navigate to="/workspace/notes" replace />} />
           <Route path="/workspace/:slug" element={<Workspace />} />
+=======
+          <Route path="/workspace" element={<Workspace />} />
+>>>>>>> origin/main
           <Route path="/workspace/notes" element={<StickyNotes />} />
           <Route path="/workspace/image-gen" element={<ImageGenerator />} />
           <Route path="/help" element={<Help />} />
@@ -90,9 +109,28 @@ const App = () => (
           <Route path="/why" element={<Why />} />
           <Route path="/saintsal-you" element={<SaintSalYou />} />
           <Route path="/hacp" element={<Hacp />} />
+          <Route path="/system-architecture" element={<SystemArchitecture />} />
+          <Route path="/brand-landing" element={<BrandLanding />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/builder-page" element={<BuilderPage />} />
 
-          {/* SaintVision Homepage route */}
+          {/* SaintVision pages */}
           <Route path="/saintvision" element={<SaintVisionHomepage />} />
+          <Route path="/saintvisiongroup" element={<SaintVisionGroup />} />
+
+          {/* Business & Documentation Routes */}
+          <Route path="/docs/api" element={<APIDocumentation />} />
+          <Route path="/white-label" element={<WhiteLabel />} />
+          <Route path="/about" element={<About />} />
+
+          {/* New Workspace Routes */}
+          <Route path="/workspace-chat" element={<WorkspaceChat />} />
+          <Route path="/workspace-warroom-enterprise" element={<WorkspaceWarroomEnterprise />} />
+          <Route path="/workspace-content" element={<WorkspaceContent />} />
+          <Route path="/test-buttons" element={<TestButtons />} />
+
+          {/* SaintVision Institute */}
+          <Route path="/saintvision-institute" element={<SaintVisionInstitute />} />
 
           {/* Builder.io dynamic pages for content management */}
           <Route path="/builder/*" element={<BuilderPageHandler />} />
