@@ -212,12 +212,10 @@ export default function Help() {
             }`}
           >
             <div className="mb-8">
-              <div
-                className="h-20 w-[199px] mx-auto mb-6 rounded-2xl flex items-center justify-center saintvision-glow-strong bg-cover bg-center bg-no-repeat"
-                style={{
-                  backgroundImage:
-                    "url(https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565)",
-                }}
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1cdc62aca2204f40a3e1d2eb0ae10565"
+                alt="SaintVision | Cookin Knowledge"
+                className="h-20 w-auto mx-auto mb-6 object-contain"
               />
             </div>
 

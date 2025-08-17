@@ -5,6 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { AppLayout } from "@/components/AppLayout";
+import DualAIChat from "@/components/DualAIChat";
+import VoiceInterface from "@/components/VoiceInterface";
 import { useUserPlan } from "@/hooks/use-plan-protection";
 import { useNavigate } from "react-router-dom";
 import {
@@ -29,84 +31,55 @@ import {
 
 export default function Dashboard() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [activeChat, setActiveChat] = useState("gpt4o");
-  const [message, setMessage] = useState("");
-  const { plan } = useUserPlan();
+  const [showVoiceInterface, setShowVoiceInterface] = useState(false);
+  const { userPlan, isLoading } = useUserPlan();
   const navigate = useNavigate();
 
-  // Determine if we should show PartnerTech branding
-  const isPartnerTechUser =
-    plan !== "free" && (plan === "pro" || plan === "enterprise");
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
+  // Handle voice transcript from voice interface
+  const handleVoiceTranscript = (transcript: string, confidence: number) => {
+    console.log('Voice transcript received:', transcript, 'Confidence:', confidence);
+    // You can integrate this with the DualAIChat component
+    // For now, we'll just log it
+  };
+
+  const handleVoiceStatusChange = (status: string) => {
+    console.log('Voice status changed:', status);
+  };
+
+  // Determine brand colors based on user plan
   const getBrandColors = () => {
-    if (isPartnerTechUser) {
+    if (userPlan && ["enterprise", "white_label", "crm"].includes(userPlan)) {
       return {
         primary: "blue-500",
-        primaryDark: "blue-600",
+        primaryLight: "blue-400", 
+        accent: "emerald-400",
+        gradient: "from-blue-500/20 to-blue-600/20",
         text: "text-blue-300",
         hover: "hover:text-blue-300",
-        bg: "bg-blue-500",
-        bgHover: "hover:bg-blue-600",
-        bgLight: "bg-blue-500/20",
+        bg: "bg-blue-500/10",
         border: "border-blue-500/30",
-        focus: "focus:border-blue-400",
       };
     }
     return {
       primary: "gold-500",
-      primaryDark: "gold-600",
+      primaryLight: "gold-400",
+      accent: "gold-300", 
+      gradient: "from-gold-500/20 to-gold-600/20",
       text: "text-gold-300",
       hover: "hover:text-gold-300",
-      bg: "bg-gold-500",
-      bgHover: "hover:bg-gold-600",
-      bgLight: "bg-gold-500/20",
+      bg: "bg-gold-500/10",
       border: "border-gold-500/30",
-      focus: "focus:border-gold-400",
     };
   };
 
   const brandColors = getBrandColors();
-  const [chatHistory, setChatHistory] = useState([
-    {
-      id: 1,
-      type: "ai",
-      content:
-        "Welcome to SaintSal™! I'm your GOTTA GUY™ AI companion. How can I help you cook up some knowledge today?",
-      timestamp: new Date().toLocaleTimeString(),
-      model: "GPT-4o",
-    },
-  ]);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
-  const handleSendMessage = () => {
-    if (!message.trim()) return;
-
-    const newMessage = {
-      id: chatHistory.length + 1,
-      type: "user",
-      content: message,
-      timestamp: new Date().toLocaleTimeString(),
-      model: "",
-    };
-
-    setChatHistory([...chatHistory, newMessage]);
-    setMessage("");
-
-    // Simulate AI response
-    setTimeout(() => {
-      const aiResponse = {
-        id: chatHistory.length + 2,
-        type: "ai",
-        content: "I understand your request. Let me help you with that!",
-        timestamp: new Date().toLocaleTimeString(),
-        model: activeChat === "gpt4o" ? "GPT-4o" : "Azure AI",
-      };
-      setChatHistory(prev => [...prev, aiResponse]);
-    }, 1000);
-  };
 
   return (
     <AppLayout>
@@ -127,389 +100,57 @@ export default function Dashboard() {
             />
             <div>
               <h1 className="text-2xl font-bold saintvision-gradient-text font-dialien">
-                GOTTA GUY™ Dashboard
+                SaintVisionAI™ Dashboard
               </h1>
               <p className="text-sm text-white/60">
-                Your AI companion for everything business
+                Dual AI Intelligence System • HACP™ Technology Active
               </p>
             </div>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className={`text-white/70 ${brandColors.hover}`}
-          >
-            <Settings className="w-4 h-4" />
-          </Button>
+          <div className="flex items-center space-x-4">
+            <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
+              War Room Active
+            </Badge>
+            <Button
+              onClick={() => setShowVoiceInterface(!showVoiceInterface)}
+              variant={showVoiceInterface ? "default" : "ghost"}
+              size="sm"
+              className={showVoiceInterface
+                ? "bg-blue-500 text-white hover:bg-blue-600"
+                : `text-white/70 ${brandColors.hover}`
+              }
+              title="Toggle Voice Interface"
+            >
+              <Mic className="w-4 h-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className={`text-white/70 ${brandColors.hover}`}
+            >
+              <Settings className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </nav>
 
-      {/* Main Content Area */}
+      {/* Main Content Area - Dual AI Chat */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left Panel - AI Model Selector and History */}
-        <div className="w-80 border-r border-white/10 glass-morphism p-6 overflow-y-auto">
-          <div
-            className={`transform transition-all duration-1000 ${
-              isLoaded
-                ? "translate-x-0 opacity-100"
-                : "-translate-x-10 opacity-0"
-            }`}
-          >
-            {/* AI Model Selector */}
-            <div className="mb-8">
-              <h3
-                className={`text-sm font-semibold ${brandColors.text} mb-4 uppercase tracking-wider font-dialien`}
-              >
-                Dual AI System
-              </h3>
-              <div className="space-y-3">
-                <Button
-                  variant={activeChat === "gpt4o" ? "default" : "ghost"}
-                  className={`w-full justify-start ${
-                    activeChat === "gpt4o"
-                      ? `${brandColors.bg} text-charcoal-900 saintvision-glow`
-                      : `text-white/70 ${brandColors.hover}`
-                  }`}
-                  onClick={() => setActiveChat("gpt4o")}
-                >
-                  <Brain className="w-4 h-4 mr-2" />
-                  <span className="text-blue-400 font-semibold">
-                    GPT-4o
-                  </span>{" "}
-                  Primary
-                  <Sparkles className="w-3 h-3 ml-auto" />
-                </Button>
-                <Button
-                  variant={activeChat === "azure" ? "default" : "ghost"}
-                  className={`w-full justify-start ${
-                    activeChat === "azure"
-                      ? "bg-blue-500 text-white"
-                      : "text-white/70 hover:text-blue-300"
-                  }`}
-                  onClick={() => setActiveChat("azure")}
-                >
-                  <Shield className="w-4 h-4 mr-2" />
-                  <span className="text-purple-400 font-semibold">
-                    Azure
-                  </span>{" "}
-                  Cognitive
-                  <Crown className="w-3 h-3 ml-auto" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Chat History */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h3
-                  className={`text-sm font-semibold ${brandColors.text} uppercase tracking-wider`}
-                >
-                  Recent Chats
-                </h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className={`text-white/50 ${brandColors.hover}`}
-                >
-                  <Plus className="w-4 h-4" />
-                </Button>
-              </div>
-              <div className="space-y-2">
-                <div className="p-3 glass-morphism rounded-lg cursor-pointer hover:bg-white/5 transition-colors">
-                  <p className="text-sm font-medium">
-                    Business Strategy Session
-                  </p>
-                  <p className="text-xs text-white/50">2 hours ago</p>
-                </div>
-                <div className="p-3 glass-morphism rounded-lg cursor-pointer hover:bg-white/5 transition-colors">
-                  <p className="text-sm font-medium">CRM Integration Help</p>
-                  <p className="text-xs text-white/50">Yesterday</p>
-                </div>
-                <div className="p-3 glass-morphism rounded-lg cursor-pointer hover:bg-white/5 transition-colors">
-                  <p className="text-sm font-medium">Code Review Session</p>
-                  <p className="text-xs text-white/50">3 days ago</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="mb-8">
-              <h3 className="text-sm font-semibold text-gold-300 mb-4 uppercase tracking-wider">
-                Quick Actions
-              </h3>
-              <div className="space-y-2">
-                <Button
-                  variant="ghost"
-                  className={`w-full justify-start text-white/70 ${brandColors.hover}`}
-                >
-                  <History className="w-4 h-4 mr-2" />
-                  View All Chats
-                </Button>
-                <Button
-                  variant="ghost"
-                  className={`w-full justify-start text-white/70 ${brandColors.hover}`}
-                >
-                  <Star className="w-4 h-4 mr-2" />
-                  Favorite Responses
-                </Button>
-                <Button
-                  variant="ghost"
-                  className={`w-full justify-start text-white/70 ${brandColors.hover}`}
-                  onClick={() => navigate("/upgrade")}
-                >
-                  <ArrowUpRight className="w-4 h-4 mr-2" />
-                  Upgrade Plan
-                </Button>
-              </div>
-            </div>
-
-            {/* Plan-Based Access Tiles */}
-            <div>
-              <h3 className="text-sm font-semibold text-gold-300 mb-4 uppercase tracking-wider">
-                Your Access
-              </h3>
-              <div className="space-y-3">
-                {/* PartnerTech Tools Tile */}
-                <div className="glass-morphism p-4 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <BarChart3 className="w-4 h-4 text-blue-300" />
-                      <span className="text-sm font-medium">
-                        PartnerTech Tools
-                      </span>
-                    </div>
-                    {plan === "crm" ||
-                    plan === "enterprise" ||
-                    plan === "white_label" ? (
-                      <Badge className="bg-green-500/20 text-green-300 border-green-500/30 text-xs">
-                        Active
-                      </Badge>
-                    ) : (
-                      <Lock className="w-4 h-4 text-white/30" />
-                    )}
-                  </div>
-                  <p className="text-xs text-white/60 mb-3">
-                    Business intelligence & CRM tools
-                  </p>
-                  {plan === "crm" ||
-                  plan === "enterprise" ||
-                  plan === "white_label" ? (
-                    <Button
-                      size="sm"
-                      className="w-full bg-blue-500 hover:bg-blue-600 text-white"
-                      onClick={() => navigate("/partnertech")}
-                    >
-                      Open PartnerTech
-                    </Button>
-                  ) : (
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="w-full text-white/50 border border-white/20"
-                      onClick={() => navigate("/upgrade")}
-                    >
-                      Upgrade to Access
-                    </Button>
-                  )}
-                </div>
-
-                {/* CRM Panel Tile */}
-                <div className="glass-morphism p-4 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <Globe className="w-4 h-4 text-purple-300" />
-                      <span className="text-sm font-medium">CRM War Room</span>
-                    </div>
-                    {plan === "crm" ||
-                    plan === "enterprise" ||
-                    plan === "white_label" ? (
-                      <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 text-xs">
-                        Connected
-                      </Badge>
-                    ) : (
-                      <Lock className="w-4 h-4 text-white/30" />
-                    )}
-                  </div>
-                  <p className="text-xs text-white/60 mb-3">
-                    GoHighLevel CRM integration
-                  </p>
-                  {plan === "crm" ||
-                  plan === "enterprise" ||
-                  plan === "white_label" ? (
-                    <Button
-                      size="sm"
-                      className="w-full bg-purple-500 hover:bg-purple-600 text-white"
-                      onClick={() => navigate("/crm")}
-                    >
-                      Open CRM
-                    </Button>
-                  ) : (
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="w-full text-white/50 border border-white/20"
-                      onClick={() => navigate("/upgrade")}
-                    >
-                      Upgrade for CRM
-                    </Button>
-                  )}
-                </div>
-
-                {/* White Label Admin (White Label Only) */}
-                {plan === "white_label" && (
-                  <div className="glass-morphism p-4 rounded-lg">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
-                        <Crown className={`w-4 h-4 ${brandColors.text}`} />
-                        <span className="text-sm font-medium">Admin Panel</span>
-                      </div>
-                      <Badge
-                        className={`${brandColors.bgLight} ${brandColors.text} ${brandColors.border} text-xs`}
-                      >
-                        Admin
-                      </Badge>
-                    </div>
-                    <p className="text-xs text-white/60 mb-3">
-                      White label client management
-                    </p>
-                    <Button
-                      size="sm"
-                      className={`w-full ${brandColors.bg} ${brandColors.bgHover} text-charcoal-900`}
-                      onClick={() => navigate("/admin")}
-                    >
-                      Admin Dashboard
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Chat Area */}
-        <div className="flex-1 flex flex-col">
-          {/* Chat Header */}
-          <div className="p-6 border-b border-white/10">
-            <div
-              className={`transform transition-all duration-1000 delay-300 ${
-                isLoaded
-                  ? "translate-y-0 opacity-100"
-                  : "translate-y-10 opacity-0"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-12 h-12 bg-gradient-to-br from-gold-400 to-gold-600 rounded-xl flex items-center justify-center saintvision-glow">
-                    {activeChat === "gpt4o" ? (
-                      <Brain className="w-6 h-6 text-charcoal-900" />
-                    ) : (
-                      <Shield className="w-6 h-6 text-white" />
-                    )}
-                  </div>
-                  <div>
-                    <h2 className="text-xl font-bold">
-                      {activeChat === "gpt4o" ? (
-                        <>
-                          <span className="text-blue-400 font-semibold">
-                            GPT-4o
-                          </span>{" "}
-                          Assistant
-                        </>
-                      ) : (
-                        <>
-                          <span className="text-purple-400 font-semibold">
-                            Azure
-                          </span>{" "}
-                          Cognitive Services
-                        </>
-                      )}
-                    </h2>
-                    <p className={`text-sm ${brandColors.text}`}>
-                      {activeChat === "gpt4o"
-                        ? "Your GOTTA GUY™ Primary AI"
-                        : "Enterprise Security & Analysis"}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Badge
-                    variant="secondary"
-                    className="bg-green-500/20 text-green-400 border-green-500/30"
-                  >
-                    Online
-                  </Badge>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`text-white/50 ${brandColors.hover}`}
-                  >
-                    <Settings className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            {chatHistory.map(chat => (
-              <div
-                key={chat.id}
-                className={`flex ${
-                  chat.type === "user" ? "justify-end" : "justify-start"
-                }`}
-              >
-                <div
-                  className={`max-w-[70%] ${
-                    chat.type === "user"
-                      ? "bg-gold-500 text-charcoal-900"
-                      : "bg-charcoal-800 text-white border border-charcoal-600"
-                  } rounded-lg p-4`}
-                >
-                  <p className="text-sm leading-relaxed">{chat.content}</p>
-                  <div className="flex items-center justify-between mt-2 text-xs opacity-70">
-                    <span>{chat.model}</span>
-                    <span>{chat.timestamp}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Message Input */}
-          <div className="p-6 border-t border-white/10">
-            <div className="flex space-x-4">
-              <Textarea
-                placeholder="Ask me anything..."
-                value={message}
-                onChange={e => setMessage(e.target.value)}
-                className="flex-1 min-h-[60px] bg-charcoal-800 border-charcoal-600 text-white placeholder:text-white/70 focus:border-gold-400"
-                onKeyDown={e => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    handleSendMessage();
-                  }
-                }}
-              />
-              <div className="flex flex-col space-y-2">
-                <Button
-                  onClick={handleSendMessage}
-                  className="bg-gold-500 hover:bg-gold-600 text-charcoal-900 saintvision-glow"
-                >
-                  <Send className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className={`text-white/50 ${brandColors.hover}`}
-                >
-                  <Mic className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <DualAIChat />
       </div>
+
+      {/* Floating Voice Interface */}
+      {showVoiceInterface && (
+        <VoiceInterface
+          mode="floating"
+          context="realtime"
+          onTranscript={handleVoiceTranscript}
+          onStatusChange={handleVoiceStatusChange}
+          showProviderInfo={true}
+          showTranscript={true}
+          placeholder="Speak to your AI companion... Voice will be transcribed here."
+        />
+      )}
     </AppLayout>
   );
 }

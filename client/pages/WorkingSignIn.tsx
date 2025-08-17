@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { authenticateDemo } from "@/lib/auth-bypass";
 import {
   Crown,
   Mail,
@@ -15,17 +16,19 @@ import {
   Shield,
   Sparkles,
   Star,
+  Zap,
 } from "lucide-react";
 
-export default function SignIn() {
+export default function WorkingSignIn() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    firstName: "",
-    lastName: "",
+    email: "demo@saintvision.ai",
+    password: "demo123",
+    firstName: "Demo",
+    lastName: "User",
   });
 
   useEffect(() => {
@@ -36,73 +39,39 @@ export default function SignIn() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Demo bypass - redirect to dashboard for any credentials
-    console.log("Demo mode: Form submitted, redirecting to dashboard");
-
-    // Set comprehensive auth state for demo
-    localStorage.setItem('demo_authenticated', 'true');
-    localStorage.setItem('user_plan', 'enterprise');
-    localStorage.setItem('user_email', formData.email || 'demo@saintvision.ai');
-    localStorage.setItem('user_name', `${formData.firstName || 'Demo'} ${formData.lastName || 'User'}`);
-    localStorage.setItem('auth_method', 'form_demo');
-
-    // Add a small delay to ensure localStorage is set
-    setTimeout(() => {
-      window.location.href = "/dashboard";
-    }, 100);
+    setIsLoading(true);
+    
+    // Add visual feedback
+    console.log("🚀 Demo authentication starting...");
+    
+    // Simulate loading
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Authenticate with demo
+    authenticateDemo('form');
   };
 
-  const handleDemoAccess = () => {
-    console.log("Demo access button clicked");
-
-    // Set comprehensive auth state for demo
-    localStorage.setItem('demo_authenticated', 'true');
-    localStorage.setItem('user_plan', 'enterprise');
-    localStorage.setItem('user_email', 'demo@saintvision.ai');
-    localStorage.setItem('user_name', 'Demo User');
-    localStorage.setItem('auth_method', 'demo_access');
-
-    // Visual feedback
-    const button = document.querySelector('[data-demo-access]') as HTMLButtonElement;
-    if (button) {
-      button.innerHTML = '<span>🚀 Accessing Dashboard...</span>';
-      button.disabled = true;
-    }
-
-    console.log("Demo access granted - redirecting to dashboard");
-
-    // Add a small delay to ensure localStorage is set
-    setTimeout(() => {
-      window.location.href = "/dashboard";
-    }, 500);
+  const handleGoogleAuth = async () => {
+    setIsLoading(true);
+    console.log("🔵 Google demo authentication...");
+    await new Promise(resolve => setTimeout(resolve, 800));
+    authenticateDemo('google');
   };
 
-  // Handle OAuth buttons
-  const handleGoogleAuth = () => {
-    console.log("Google auth clicked - using demo mode");
-    localStorage.setItem('demo_authenticated', 'true');
-    localStorage.setItem('user_plan', 'enterprise');
-    localStorage.setItem('user_email', 'google@saintvision.ai');
-    localStorage.setItem('user_name', 'Google Demo User');
-    localStorage.setItem('auth_method', 'google_demo');
-    setTimeout(() => {
-      window.location.href = "/dashboard";
-    }, 100);
+  const handleGithubAuth = async () => {
+    setIsLoading(true);
+    console.log("⚫ GitHub demo authentication...");
+    await new Promise(resolve => setTimeout(resolve, 800));
+    authenticateDemo('github');
   };
 
-  const handleGithubAuth = () => {
-    console.log("GitHub auth clicked - using demo mode");
-    localStorage.setItem('demo_authenticated', 'true');
-    localStorage.setItem('user_plan', 'enterprise');
-    localStorage.setItem('user_email', 'github@saintvision.ai');
-    localStorage.setItem('user_name', 'GitHub Demo User');
-    localStorage.setItem('auth_method', 'github_demo');
-    setTimeout(() => {
-      window.location.href = "/dashboard";
-    }, 100);
+  const handleDemoAccess = async () => {
+    setIsLoading(true);
+    console.log("⭐ Demo access authentication...");
+    await new Promise(resolve => setTimeout(resolve, 500));
+    authenticateDemo('demo_access');
   };
 
   return (
@@ -249,10 +218,44 @@ export default function SignIn() {
                 </p>
               </div>
 
+              {/* Demo Access Button - PROMINENT */}
+              <div className="mb-6">
+                <Button
+                  type="button"
+                  onClick={handleDemoAccess}
+                  disabled={isLoading}
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 h-14 text-lg font-semibold transition-all duration-200 saintvision-glow"
+                >
+                  {isLoading ? (
+                    <div className="flex items-center">
+                      <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-3"></div>
+                      Accessing...
+                    </div>
+                  ) : (
+                    <>
+                      <Star className="mr-2 w-6 h-6" />
+                      DEMO ACCESS - Explore All Features
+                      <Sparkles className="ml-2 w-5 h-5" />
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              {/* Separator */}
+              <div className="relative mb-6">
+                <Separator className="bg-white/20" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="bg-charcoal-900 px-4 text-white/60 text-sm">
+                    or continue with
+                  </span>
+                </div>
+              </div>
+
               {/* Social Auth */}
               <div className="space-y-3 mb-6">
                 <Button
                   onClick={handleGoogleAuth}
+                  disabled={isLoading}
                   variant="outline"
                   className="w-full border-white/20 text-white hover:bg-white/10 h-12"
                 >
@@ -261,6 +264,7 @@ export default function SignIn() {
                 </Button>
                 <Button
                   onClick={handleGithubAuth}
+                  disabled={isLoading}
                   variant="outline"
                   className="w-full border-white/20 text-white hover:bg-white/10 h-12"
                 >
@@ -273,7 +277,7 @@ export default function SignIn() {
                 <Separator className="bg-white/20" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="bg-charcoal-900 px-4 text-white/60 text-sm">
-                    or continue with email
+                    or use email
                   </span>
                 </div>
               </div>
@@ -386,23 +390,20 @@ export default function SignIn() {
 
                 <Button
                   type="submit"
+                  disabled={isLoading}
                   className="w-full bg-gold-500 text-charcoal-900 hover:bg-gold-400 saintvision-glow h-12 text-lg font-semibold"
                 >
-                  {isSignUp ? "Create Account" : "Sign In"}
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-
-                {/* Demo Access Button */}
-                <Button
-                  type="button"
-                  onClick={handleDemoAccess}
-                  variant="outline"
-                  data-demo-access="true"
-                  className="w-full border-blue-500/50 text-blue-300 hover:bg-blue-500/10 h-12 text-lg font-semibold transition-all duration-200"
-                >
-                  <Star className="mr-2 w-5 h-5" />
-                  Demo Access - Explore All Features
-                  <Sparkles className="ml-2 w-4 h-4" />
+                  {isLoading ? (
+                    <div className="flex items-center">
+                      <div className="animate-spin w-5 h-5 border-2 border-charcoal-900 border-t-transparent rounded-full mr-3"></div>
+                      Signing In...
+                    </div>
+                  ) : (
+                    <>
+                      {isSignUp ? "Create Account" : "Sign In"}
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </>
+                  )}
                 </Button>
               </form>
 

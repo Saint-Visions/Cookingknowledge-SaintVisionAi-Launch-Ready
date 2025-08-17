@@ -179,19 +179,17 @@ export default function Setup() {
         }}
       ></div>
 
-      {/* Mobile-First Navigation */}
-      <nav className="relative z-50 p-4 md:p-6">
+      {/* Clean Simple Header */}
+      <nav className="relative z-50 p-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-gold-400 to-gold-600 rounded-lg flex items-center justify-center saintvision-glow">
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F1fad4f7c944249c3a8a02d8e8ae77b26?format=webp&width=800"
-                alt="SaintVisionAI Logo"
-                className="w-5 h-5 md:w-6 md:h-6 object-contain"
-              />
-            </div>
+          <div className="flex items-center space-x-4">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets%2Fd83998c6a81f466db4fb83ab90c7ba25%2F03050cb7e1e04ae4900626be9878764d"
+              alt="SaintVisionAI Logo"
+              className="w-12 h-12 object-contain"
+            />
             <div>
-              <h1 className="text-lg md:text-xl font-bold saintvision-gradient-text">
+              <h1 className="text-xl font-bold saintvision-gradient-text">
                 Setup Wizard
               </h1>
               <p className="text-xs text-gold-300 -mt-1">
@@ -199,7 +197,7 @@ export default function Setup() {
               </p>
             </div>
           </div>
-          <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/30 text-xs md:text-sm">
+          <Badge className="bg-gold-500/20 text-gold-300 border-gold-500/30 text-sm">
             Step {currentStep} of {totalSteps}
           </Badge>
         </div>
@@ -248,11 +246,11 @@ export default function Setup() {
               {/* Step 1: Welcome */}
               {currentStep === 1 && (
                 <div className="text-center">
-                  <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 bg-gradient-to-br from-gold-400 to-gold-600 rounded-2xl flex items-center justify-center saintvision-glow-strong">
+                  <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 rounded-2xl flex items-center justify-center saintvision-glow">
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets%2F065997bd13e4442e888a08652fcd61ba%2F66fe1620bff64382adab8967dd63b6ff?format=webp&width=800"
                       alt="SaintVisionAI Logo"
-                      className="w-10 h-10 md:w-12 md:h-12 object-contain"
+                      className="w-12 h-12 object-contain"
                     />
                   </div>
                   <h3 className="text-2xl md:text-3xl font-bold mb-4">

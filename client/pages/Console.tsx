@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import VoiceInterface from "@/components/VoiceInterface";
 import {
   Bot,
   Send,
@@ -73,6 +74,7 @@ export default function Console() {
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isVoiceActive, setIsVoiceActive] = useState(false);
+  const [showVoiceInterface, setShowVoiceInterface] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [escalationStatus, setEscalationStatus] = useState<string | null>(null);
 
@@ -369,7 +371,28 @@ ${
     }
 
     setIsVoiceActive(!isVoiceActive);
-    // Implement voice functionality with Twilio integration
+    setShowVoiceInterface(!showVoiceInterface);
+  };
+
+  // Handle voice transcript integration
+  const handleVoiceTranscript = (transcript: string, confidence: number) => {
+    if (transcript.trim()) {
+      // Set the transcript as input message
+      setInputMessage(transcript.trim());
+      // Optional: Auto-send if confidence is high enough
+      if (confidence > 0.8) {
+        // Auto-send the message
+        setTimeout(() => {
+          sendMessage();
+        }, 500);
+      }
+    }
+  };
+
+  // Handle voice status changes
+  const handleVoiceStatusChange = (status: string) => {
+    console.log('Voice status:', status);
+    // You can update UI based on voice status
   };
 
   const scrollToBottom = () => {
@@ -496,7 +519,7 @@ ${
         </div>
       </header>
 
-      {/* HACP™ Patent Notice */}
+      {/* HACP�� Patent Notice */}
       {consoleMode.mode === "client" && (
         <div
           className={`${brandColors.bgLight} border-b ${brandColors.borderLight} px-4 py-2`}
@@ -622,6 +645,23 @@ ${
               <Send className="w-5 h-5" />
             </Button>
           </div>
+
+          {/* Voice Interface */}
+          {agent.features.includes("voice_enabled") && showVoiceInterface && (
+            <div className="mt-4">
+              <VoiceInterface
+                mode="full"
+                context="realtime"
+                onTranscript={handleVoiceTranscript}
+                onStatusChange={handleVoiceStatusChange}
+                className="border-white/10"
+                showProviderInfo={true}
+                showTranscript={true}
+                maxHeight="200px"
+                placeholder={`Speak to ${agent.name}... Your voice will be transcribed here.`}
+              />
+            </div>
+          )}
 
           {/* Agent Features Display */}
           <div className="flex items-center justify-between mt-3 text-xs text-white/50">

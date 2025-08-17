@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // Import all working pages
 import Index from "./pages/Index";
@@ -26,6 +26,11 @@ import CheckoutSuccess from "./pages/CheckoutSuccess";
 import Setup from "./pages/Setup";
 import ReferralInvite from "./pages/ReferralInvite";
 import Workspace from "./pages/Workspace";
+import Workstation from "./pages/Workstation";
+import DirectLogin from "./pages/DirectLogin";
+import VoiceDemo from "./pages/VoiceDemo";
+import TestAuth from "./pages/TestAuth";
+import WorkingSignIn from "./pages/WorkingSignIn";
 import StickyNotes from "./pages/workspace/StickyNotes";
 import ImageGenerator from "./pages/workspace/ImageGenerator";
 import Help from "./pages/Help";
@@ -74,6 +79,11 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/__routes" element={<RouteScanner />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/workstation" element={<Workstation />} />
+          <Route path="/direct" element={<DirectLogin />} />
+          <Route path="/voice-demo" element={<VoiceDemo />} />
+          <Route path="/test-auth" element={<TestAuth />} />
+          <Route path="/working-signin" element={<WorkingSignIn />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
@@ -92,7 +102,8 @@ const App = () => (
           <Route path="/checkout-success" element={<CheckoutSuccess />} />
           <Route path="/setup" element={<Setup />} />
           <Route path="/referral/invite" element={<ReferralInvite />} />
-          <Route path="/workspace" element={<Workspace />} />
+          <Route path="/workspace" element={<Navigate to="/workspace/notes" replace />} />
+          <Route path="/workspace/:slug" element={<Workspace />} />
           <Route path="/workspace/notes" element={<StickyNotes />} />
           <Route path="/workspace/image-gen" element={<ImageGenerator />} />
           <Route path="/help" element={<Help />} />
