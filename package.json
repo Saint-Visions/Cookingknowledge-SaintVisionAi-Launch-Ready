@@ -65,7 +65,7 @@
     "react-resizable-panels": "^3.0.3",
     "react-router-dom": "^6.26.2",
     "recharts": "^3.1.0",
-    "serve": "^14.2.4",
+    "serve": "^14.2.5",
     "sonner": "^1.7.3",
     "stripe": "^18.3.0",
     "tailwind-merge": "^2.5.2",
@@ -86,6 +86,6 @@
     "tailwindcss": "^3.4.11",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.5.3",
-    "vite": "^6.2.2"
+    "vite": "^6.3.6"
   }
 }
